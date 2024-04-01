@@ -22,6 +22,9 @@ import { Mfe } from "./Mfe";
 import { MfeFindManyArgs } from "./MfeFindManyArgs";
 import { MfeWhereUniqueInput } from "./MfeWhereUniqueInput";
 import { MfeUpdateInput } from "./MfeUpdateInput";
+import { UserAFindManyArgs } from "../../userA/base/UserAFindManyArgs";
+import { UserA } from "../../userA/base/UserA";
+import { UserAWhereUniqueInput } from "../../userA/base/UserAWhereUniqueInput";
 
 export class MfeControllerBase {
   constructor(protected readonly service: MfeService) {}
@@ -143,5 +146,81 @@ export class MfeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/mfe")
+  @ApiNestedQuery(UserAFindManyArgs)
+  async findMfe(
+    @common.Req() request: Request,
+    @common.Param() params: MfeWhereUniqueInput
+  ): Promise<UserA[]> {
+    const query = plainToClass(UserAFindManyArgs, request.query);
+    const results = await this.service.findMfe(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+        username: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/mfe")
+  async connectMfe(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: UserAWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      mfe: {
+        connect: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/mfe")
+  async updateMfe(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: UserAWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      mfe: {
+        set: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/mfe")
+  async disconnectMfe(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: UserAWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      mfe: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

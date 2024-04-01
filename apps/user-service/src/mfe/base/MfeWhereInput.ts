@@ -13,9 +13,10 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { UserAListRelationFilter } from "../../userA/base/UserAListRelationFilter";
 
 @InputType()
 class MfeWhereInput {
@@ -73,6 +74,18 @@ class MfeWhereInput {
     nullable: true,
   })
   key?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserAListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => UserAListRelationFilter)
+  @IsOptional()
+  @Field(() => UserAListRelationFilter, {
+    nullable: true,
+  })
+  mfe?: UserAListRelationFilter;
 }
 
 export { MfeWhereInput as MfeWhereInput };

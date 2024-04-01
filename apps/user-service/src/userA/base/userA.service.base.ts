@@ -10,7 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, UserA } from "@prisma/client";
+
+import {
+  Prisma,
+  UserA, // @ts-ignore
+  Mfe,
+} from "@prisma/client";
 
 export class UserAServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +50,16 @@ export class UserAServiceBase {
     args: Prisma.SelectSubset<T, Prisma.UserADeleteArgs>
   ): Promise<UserA> {
     return this.prisma.userA.delete(args);
+  }
+
+  async findMfes(
+    parentId: string,
+    args: Prisma.MfeFindManyArgs
+  ): Promise<Mfe[]> {
+    return this.prisma.userA
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .mfes(args);
   }
 }
