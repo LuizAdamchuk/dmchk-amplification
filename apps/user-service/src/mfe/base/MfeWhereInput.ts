@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { UserAListRelationFilter } from "../../userA/base/UserAListRelationFilter";
+import { UserA } from "../../userA/base/UserA";
 
 @InputType()
 class MfeWhereInput {
@@ -85,7 +86,7 @@ class MfeWhereInput {
   @Field(() => UserAListRelationFilter, {
     nullable: true,
   })
-  mfe?: UserAListRelationFilter;
+  UserA?: UserAListRelationFilter;
 }
 
 export { MfeWhereInput as MfeWhereInput };

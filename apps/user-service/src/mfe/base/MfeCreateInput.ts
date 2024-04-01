@@ -19,6 +19,7 @@ import {
 } from "class-validator";
 import { UserACreateNestedManyWithoutMfesInput } from "./UserACreateNestedManyWithoutMfesInput";
 import { Type } from "class-transformer";
+import { UserA } from "../../userA/base/UserA";
 
 @InputType()
 class MfeCreateInput {
@@ -76,7 +77,7 @@ class MfeCreateInput {
   @Field(() => UserACreateNestedManyWithoutMfesInput, {
     nullable: true,
   })
-  mfe?: UserACreateNestedManyWithoutMfesInput;
+  UserA?: UserACreateNestedManyWithoutMfesInput;
 }
 
 export { MfeCreateInput as MfeCreateInput };
