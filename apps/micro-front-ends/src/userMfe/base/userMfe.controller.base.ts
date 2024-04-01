@@ -161,20 +161,7 @@ export class UserMfeControllerBase {
         description: true,
         id: true,
         key: true,
-
-        mfe: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
     if (results === null) {
@@ -248,13 +235,6 @@ export class UserMfeControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        mfes: {
-          select: {
-            id: true,
-          },
-        },
-
         name: true,
         updatedAt: true,
         username: true,

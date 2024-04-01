@@ -17,11 +17,8 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
-import { MfeWhereUniqueInput } from "./MfeWhereUniqueInput";
-import { Type } from "class-transformer";
-import { MfeUpdateManyWithoutMfesInput } from "./MfeUpdateManyWithoutMfesInput";
-import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { UserMfeUpdateManyWithoutMfesInput } from "./UserMfeUpdateManyWithoutMfesInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class MfeUpdateInput {
@@ -68,42 +65,6 @@ class MfeUpdateInput {
     nullable: true,
   })
   key?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => MfeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => MfeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => MfeWhereUniqueInput, {
-    nullable: true,
-  })
-  mfe?: MfeWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => MfeUpdateManyWithoutMfesInput,
-  })
-  @ValidateNested()
-  @Type(() => MfeUpdateManyWithoutMfesInput)
-  @IsOptional()
-  @Field(() => MfeUpdateManyWithoutMfesInput, {
-    nullable: true,
-  })
-  mfes?: MfeUpdateManyWithoutMfesInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => UserWhereUniqueInput)
-  @IsOptional()
-  @Field(() => UserWhereUniqueInput, {
-    nullable: true,
-  })
-  user?: UserWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

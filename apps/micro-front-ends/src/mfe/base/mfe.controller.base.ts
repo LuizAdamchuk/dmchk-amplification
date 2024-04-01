@@ -32,21 +32,7 @@ export class MfeControllerBase {
   @swagger.ApiCreatedResponse({ type: Mfe })
   async createMfe(@common.Body() data: MfeCreateInput): Promise<Mfe> {
     return await this.service.createMfe({
-      data: {
-        ...data,
-
-        mfe: data.mfe
-          ? {
-              connect: data.mfe,
-            }
-          : undefined,
-
-        user: data.user
-          ? {
-              connect: data.user,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         active: true,
         authenticationRequired: true,
@@ -54,20 +40,7 @@ export class MfeControllerBase {
         description: true,
         id: true,
         key: true,
-
-        mfe: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
   }
@@ -86,20 +59,7 @@ export class MfeControllerBase {
         description: true,
         id: true,
         key: true,
-
-        mfe: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
   }
@@ -117,20 +77,7 @@ export class MfeControllerBase {
         description: true,
         id: true,
         key: true,
-
-        mfe: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
     if (result === null) {
@@ -151,21 +98,7 @@ export class MfeControllerBase {
     try {
       return await this.service.updateMfe({
         where: params,
-        data: {
-          ...data,
-
-          mfe: data.mfe
-            ? {
-                connect: data.mfe,
-              }
-            : undefined,
-
-          user: data.user
-            ? {
-                connect: data.user,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           active: true,
           authenticationRequired: true,
@@ -173,20 +106,7 @@ export class MfeControllerBase {
           description: true,
           id: true,
           key: true,
-
-          mfe: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
-
-          user: {
-            select: {
-              id: true,
-            },
-          },
         },
       });
     } catch (error) {
@@ -215,20 +135,7 @@ export class MfeControllerBase {
           description: true,
           id: true,
           key: true,
-
-          mfe: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
-
-          user: {
-            select: {
-              id: true,
-            },
-          },
         },
       });
     } catch (error) {
@@ -239,97 +146,6 @@ export class MfeControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.Get("/:id/mfes")
-  @ApiNestedQuery(MfeFindManyArgs)
-  async findMfes(
-    @common.Req() request: Request,
-    @common.Param() params: MfeWhereUniqueInput
-  ): Promise<Mfe[]> {
-    const query = plainToClass(MfeFindManyArgs, request.query);
-    const results = await this.service.findMfes(params.id, {
-      ...query,
-      select: {
-        active: true,
-        authenticationRequired: true,
-        createdAt: true,
-        description: true,
-        id: true,
-        key: true,
-
-        mfe: {
-          select: {
-            id: true,
-          },
-        },
-
-        updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/mfes")
-  async connectMfes(
-    @common.Param() params: MfeWhereUniqueInput,
-    @common.Body() body: MfeWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      mfes: {
-        connect: body,
-      },
-    };
-    await this.service.updateMfe({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/mfes")
-  async updateMfes(
-    @common.Param() params: MfeWhereUniqueInput,
-    @common.Body() body: MfeWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      mfes: {
-        set: body,
-      },
-    };
-    await this.service.updateMfe({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/mfes")
-  async disconnectMfes(
-    @common.Param() params: MfeWhereUniqueInput,
-    @common.Body() body: MfeWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      mfes: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateMfe({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 
   @common.Get("/:id/usersMfes")

@@ -32,25 +32,10 @@ export class UserControllerBase {
   @swagger.ApiCreatedResponse({ type: User })
   async createUser(@common.Body() data: UserCreateInput): Promise<User> {
     return await this.service.createUser({
-      data: {
-        ...data,
-
-        mfes: data.mfes
-          ? {
-              connect: data.mfes,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         id: true,
-
-        mfes: {
-          select: {
-            id: true,
-          },
-        },
-
         name: true,
         updatedAt: true,
         username: true,
@@ -68,13 +53,6 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        mfes: {
-          select: {
-            id: true,
-          },
-        },
-
         name: true,
         updatedAt: true,
         username: true,
@@ -93,13 +71,6 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        mfes: {
-          select: {
-            id: true,
-          },
-        },
-
         name: true,
         updatedAt: true,
         username: true,
@@ -123,25 +94,10 @@ export class UserControllerBase {
     try {
       return await this.service.updateUser({
         where: params,
-        data: {
-          ...data,
-
-          mfes: data.mfes
-            ? {
-                connect: data.mfes,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           id: true,
-
-          mfes: {
-            select: {
-              id: true,
-            },
-          },
-
           name: true,
           updatedAt: true,
           username: true,
@@ -169,13 +125,6 @@ export class UserControllerBase {
         select: {
           createdAt: true,
           id: true,
-
-          mfes: {
-            select: {
-              id: true,
-            },
-          },
-
           name: true,
           updatedAt: true,
           username: true,

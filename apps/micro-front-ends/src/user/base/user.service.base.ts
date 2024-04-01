@@ -14,8 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   User, // @ts-ignore
-  UserMfe, // @ts-ignore
-  Mfe,
+  UserMfe,
 } from "@prisma/client";
 
 export class UserServiceBase {
@@ -62,13 +61,5 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .usersMfes(args);
-  }
-
-  async getMfes(parentId: string): Promise<Mfe | null> {
-    return this.prisma.user
-      .findUnique({
-        where: { id: parentId },
-      })
-      .mfes();
   }
 }
