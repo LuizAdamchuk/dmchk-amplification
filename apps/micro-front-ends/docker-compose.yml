@@ -45,3 +45,4 @@ services:
       retries: 10
 volumes:
   postgres: ~
+
