@@ -19,6 +19,7 @@ import {
 } from "class-validator";
 import { UserAUpdateManyWithoutMfesInput } from "./UserAUpdateManyWithoutMfesInput";
 import { Type } from "class-transformer";
+import { UserA } from "../../userA/base/UserA";
 
 @InputType()
 class MfeUpdateInput {
@@ -76,7 +77,7 @@ class MfeUpdateInput {
   @Field(() => UserAUpdateManyWithoutMfesInput, {
     nullable: true,
   })
-  mfe?: UserAUpdateManyWithoutMfesInput;
+  UserA?: UserAUpdateManyWithoutMfesInput;
 }
 
 export { MfeUpdateInput as MfeUpdateInput };

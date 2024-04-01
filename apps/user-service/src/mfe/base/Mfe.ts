@@ -84,21 +84,21 @@ class Mfe {
   key!: string | null;
 
   @ApiProperty({
-    required: false,
-    type: () => [UserA],
-  })
-  @ValidateNested()
-  @Type(() => UserA)
-  @IsOptional()
-  mfe?: Array<UserA>;
-
-  @ApiProperty({
     required: true,
   })
   @IsDate()
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [UserA],
+  })
+  @ValidateNested()
+  @Type(() => UserA)
+  @IsOptional()
+  UserA?: Array<UserA>;
 }
 
 export { Mfe as Mfe };
