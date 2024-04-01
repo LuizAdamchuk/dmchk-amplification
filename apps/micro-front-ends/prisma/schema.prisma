@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DB_URL")
 }
 
@@ -7,12 +7,29 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model User {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  updatedAt DateTime @updatedAt
+  username  String?  @unique
+}
+
 model Mfe {
   active                 Boolean?
   authenticationRequired Boolean?
   createdAt              DateTime @default(now())
   description            String?
-  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                     String   @id @default(cuid())
   key                    String?  @unique
   updatedAt              DateTime @updatedAt
 }
+
+model UsersMfe {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  mfeId     String?
+  updatedAt DateTime @updatedAt
+  userD     String?
+}
+
