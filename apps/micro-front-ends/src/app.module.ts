@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { UserModule } from "./user/user.module";
 import { MfeModule } from "./mfe/mfe.module";
-import { UsersMfeModule } from "./usersMfe/usersMfe.module";
+import { UserMfeModule } from "./userMfe/userMfe.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -14,7 +14,7 @@ import { ConfigModule } from "@nestjs/config";
   imports: [
     UserModule,
     MfeModule,
-    UsersMfeModule,
+    UserMfeModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

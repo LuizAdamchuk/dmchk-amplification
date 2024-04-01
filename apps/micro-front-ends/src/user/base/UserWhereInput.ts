@@ -13,8 +13,10 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { UserMfeListRelationFilter } from "../../userMfe/base/UserMfeListRelationFilter";
 
 @InputType()
 class UserWhereInput {
@@ -28,6 +30,18 @@ class UserWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MfeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MfeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MfeWhereUniqueInput, {
+    nullable: true,
+  })
+  mfes?: MfeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -50,6 +64,18 @@ class UserWhereInput {
     nullable: true,
   })
   username?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserMfeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => UserMfeListRelationFilter)
+  @IsOptional()
+  @Field(() => UserMfeListRelationFilter, {
+    nullable: true,
+  })
+  usersMfes?: UserMfeListRelationFilter;
 }
 
 export { UserWhereInput as UserWhereInput };

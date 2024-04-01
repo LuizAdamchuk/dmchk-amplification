@@ -11,32 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UsersMfeWhereInput } from "./UsersMfeWhereInput";
+import { UserMfeWhereInput } from "./UserMfeWhereInput";
 import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { UsersMfeOrderByInput } from "./UsersMfeOrderByInput";
+import { UserMfeOrderByInput } from "./UserMfeOrderByInput";
 
 @ArgsType()
-class UsersMfeFindManyArgs {
+class UserMfeFindManyArgs {
   @ApiProperty({
     required: false,
-    type: () => UsersMfeWhereInput,
+    type: () => UserMfeWhereInput,
   })
   @IsOptional()
   @ValidateNested()
-  @Field(() => UsersMfeWhereInput, { nullable: true })
-  @Type(() => UsersMfeWhereInput)
-  where?: UsersMfeWhereInput;
+  @Field(() => UserMfeWhereInput, { nullable: true })
+  @Type(() => UserMfeWhereInput)
+  where?: UserMfeWhereInput;
 
   @ApiProperty({
     required: false,
-    type: [UsersMfeOrderByInput],
+    type: [UserMfeOrderByInput],
   })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Field(() => [UsersMfeOrderByInput], { nullable: true })
-  @Type(() => UsersMfeOrderByInput)
-  orderBy?: Array<UsersMfeOrderByInput>;
+  @Field(() => [UserMfeOrderByInput], { nullable: true })
+  @Type(() => UserMfeOrderByInput)
+  orderBy?: Array<UserMfeOrderByInput>;
 
   @ApiProperty({
     required: false,
@@ -59,4 +59,4 @@ class UsersMfeFindManyArgs {
   take?: number;
 }
 
-export { UsersMfeFindManyArgs as UsersMfeFindManyArgs };
+export { UserMfeFindManyArgs as UserMfeFindManyArgs };

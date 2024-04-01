@@ -12,8 +12,8 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { UsersMfeController } from "../usersMfe.controller";
-import { UsersMfeService } from "../usersMfe.service";
+import { UserMfeController } from "../userMfe.controller";
+import { UserMfeService } from "../userMfe.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -22,14 +22,14 @@ const CREATE_INPUT = {
   id: "exampleId",
   mfeId: "exampleMfeId",
   updatedAt: new Date(),
-  userD: "exampleUserD",
+  userId: "exampleUserId",
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
   mfeId: "exampleMfeId",
   updatedAt: new Date(),
-  userD: "exampleUserD",
+  userId: "exampleUserId",
 };
 const FIND_MANY_RESULT = [
   {
@@ -37,7 +37,7 @@ const FIND_MANY_RESULT = [
     id: "exampleId",
     mfeId: "exampleMfeId",
     updatedAt: new Date(),
-    userD: "exampleUserD",
+    userId: "exampleUserId",
   },
 ];
 const FIND_ONE_RESULT = {
@@ -45,15 +45,15 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   mfeId: "exampleMfeId",
   updatedAt: new Date(),
-  userD: "exampleUserD",
+  userId: "exampleUserId",
 };
 
 const service = {
-  createUsersMfe() {
+  createUserMfe() {
     return CREATE_RESULT;
   },
-  usersMfes: () => FIND_MANY_RESULT,
-  usersMfe: ({ where }: { where: { id: string } }) => {
+  userMfes: () => FIND_MANY_RESULT,
+  userMfe: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -95,18 +95,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("UsersMfe", () => {
+describe("UserMfe", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: UsersMfeService,
+          provide: UserMfeService,
           useValue: service,
         },
       ],
-      controllers: [UsersMfeController],
+      controllers: [UserMfeController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -123,9 +123,9 @@ describe("UsersMfe", () => {
     await app.init();
   });
 
-  test("POST /usersMfes", async () => {
+  test("POST /userMfes", async () => {
     await request(app.getHttpServer())
-      .post("/usersMfes")
+      .post("/userMfes")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -135,9 +135,9 @@ describe("UsersMfe", () => {
       });
   });
 
-  test("GET /usersMfes", async () => {
+  test("GET /userMfes", async () => {
     await request(app.getHttpServer())
-      .get("/usersMfes")
+      .get("/userMfes")
       .expect(HttpStatus.OK)
       .expect([
         {
@@ -148,9 +148,9 @@ describe("UsersMfe", () => {
       ]);
   });
 
-  test("GET /usersMfes/:id non existing", async () => {
+  test("GET /userMfes/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/usersMfes"}/${nonExistingId}`)
+      .get(`${"/userMfes"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -159,9 +159,9 @@ describe("UsersMfe", () => {
       });
   });
 
-  test("GET /usersMfes/:id existing", async () => {
+  test("GET /userMfes/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/usersMfes"}/${existingId}`)
+      .get(`${"/userMfes"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
@@ -170,10 +170,10 @@ describe("UsersMfe", () => {
       });
   });
 
-  test("POST /usersMfes existing resource", async () => {
+  test("POST /userMfes existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/usersMfes")
+      .post("/userMfes")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -183,7 +183,7 @@ describe("UsersMfe", () => {
       })
       .then(function () {
         agent
-          .post("/usersMfes")
+          .post("/userMfes")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({

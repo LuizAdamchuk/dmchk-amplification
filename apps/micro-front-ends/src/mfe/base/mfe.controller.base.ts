@@ -22,6 +22,9 @@ import { Mfe } from "./Mfe";
 import { MfeFindManyArgs } from "./MfeFindManyArgs";
 import { MfeWhereUniqueInput } from "./MfeWhereUniqueInput";
 import { MfeUpdateInput } from "./MfeUpdateInput";
+import { UserMfeFindManyArgs } from "../../userMfe/base/UserMfeFindManyArgs";
+import { UserMfe } from "../../userMfe/base/UserMfe";
+import { UserMfeWhereUniqueInput } from "../../userMfe/base/UserMfeWhereUniqueInput";
 
 export class MfeControllerBase {
   constructor(protected readonly service: MfeService) {}
@@ -29,7 +32,21 @@ export class MfeControllerBase {
   @swagger.ApiCreatedResponse({ type: Mfe })
   async createMfe(@common.Body() data: MfeCreateInput): Promise<Mfe> {
     return await this.service.createMfe({
-      data: data,
+      data: {
+        ...data,
+
+        mfe: data.mfe
+          ? {
+              connect: data.mfe,
+            }
+          : undefined,
+
+        user: data.user
+          ? {
+              connect: data.user,
+            }
+          : undefined,
+      },
       select: {
         active: true,
         authenticationRequired: true,
@@ -37,7 +54,20 @@ export class MfeControllerBase {
         description: true,
         id: true,
         key: true,
+
+        mfe: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -56,7 +86,20 @@ export class MfeControllerBase {
         description: true,
         id: true,
         key: true,
+
+        mfe: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -74,7 +117,20 @@ export class MfeControllerBase {
         description: true,
         id: true,
         key: true,
+
+        mfe: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -95,7 +151,21 @@ export class MfeControllerBase {
     try {
       return await this.service.updateMfe({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          mfe: data.mfe
+            ? {
+                connect: data.mfe,
+              }
+            : undefined,
+
+          user: data.user
+            ? {
+                connect: data.user,
+              }
+            : undefined,
+        },
         select: {
           active: true,
           authenticationRequired: true,
@@ -103,7 +173,20 @@ export class MfeControllerBase {
           description: true,
           id: true,
           key: true,
+
+          mfe: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -132,7 +215,20 @@ export class MfeControllerBase {
           description: true,
           id: true,
           key: true,
+
+          mfe: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -143,5 +239,172 @@ export class MfeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/mfes")
+  @ApiNestedQuery(MfeFindManyArgs)
+  async findMfes(
+    @common.Req() request: Request,
+    @common.Param() params: MfeWhereUniqueInput
+  ): Promise<Mfe[]> {
+    const query = plainToClass(MfeFindManyArgs, request.query);
+    const results = await this.service.findMfes(params.id, {
+      ...query,
+      select: {
+        active: true,
+        authenticationRequired: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        key: true,
+
+        mfe: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/mfes")
+  async connectMfes(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: MfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      mfes: {
+        connect: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/mfes")
+  async updateMfes(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: MfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      mfes: {
+        set: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/mfes")
+  async disconnectMfes(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: MfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      mfes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/usersMfes")
+  @ApiNestedQuery(UserMfeFindManyArgs)
+  async findUsersMfes(
+    @common.Req() request: Request,
+    @common.Param() params: MfeWhereUniqueInput
+  ): Promise<UserMfe[]> {
+    const query = plainToClass(UserMfeFindManyArgs, request.query);
+    const results = await this.service.findUsersMfes(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        mfeId: true,
+        updatedAt: true,
+        userId: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/usersMfes")
+  async connectUsersMfes(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: UserMfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersMfes: {
+        connect: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/usersMfes")
+  async updateUsersMfes(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: UserMfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersMfes: {
+        set: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/usersMfes")
+  async disconnectUsersMfes(
+    @common.Param() params: MfeWhereUniqueInput,
+    @common.Body() body: UserMfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersMfes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateMfe({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

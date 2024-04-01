@@ -22,6 +22,9 @@ import { User } from "./User";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserUpdateInput } from "./UserUpdateInput";
+import { UserMfeFindManyArgs } from "../../userMfe/base/UserMfeFindManyArgs";
+import { UserMfe } from "../../userMfe/base/UserMfe";
+import { UserMfeWhereUniqueInput } from "../../userMfe/base/UserMfeWhereUniqueInput";
 
 export class UserControllerBase {
   constructor(protected readonly service: UserService) {}
@@ -29,10 +32,25 @@ export class UserControllerBase {
   @swagger.ApiCreatedResponse({ type: User })
   async createUser(@common.Body() data: UserCreateInput): Promise<User> {
     return await this.service.createUser({
-      data: data,
+      data: {
+        ...data,
+
+        mfes: data.mfes
+          ? {
+              connect: data.mfes,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
+
+        mfes: {
+          select: {
+            id: true,
+          },
+        },
+
         name: true,
         updatedAt: true,
         username: true,
@@ -50,6 +68,13 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        mfes: {
+          select: {
+            id: true,
+          },
+        },
+
         name: true,
         updatedAt: true,
         username: true,
@@ -68,6 +93,13 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        mfes: {
+          select: {
+            id: true,
+          },
+        },
+
         name: true,
         updatedAt: true,
         username: true,
@@ -91,10 +123,25 @@ export class UserControllerBase {
     try {
       return await this.service.updateUser({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          mfes: data.mfes
+            ? {
+                connect: data.mfes,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
+
+          mfes: {
+            select: {
+              id: true,
+            },
+          },
+
           name: true,
           updatedAt: true,
           username: true,
@@ -122,6 +169,13 @@ export class UserControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          mfes: {
+            select: {
+              id: true,
+            },
+          },
+
           name: true,
           updatedAt: true,
           username: true,
@@ -135,5 +189,81 @@ export class UserControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/usersMfes")
+  @ApiNestedQuery(UserMfeFindManyArgs)
+  async findUsersMfes(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<UserMfe[]> {
+    const query = plainToClass(UserMfeFindManyArgs, request.query);
+    const results = await this.service.findUsersMfes(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        mfeId: true,
+        updatedAt: true,
+        userId: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/usersMfes")
+  async connectUsersMfes(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserMfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersMfes: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/usersMfes")
+  async updateUsersMfes(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserMfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersMfes: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/usersMfes")
+  async disconnectUsersMfes(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserMfeWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersMfes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

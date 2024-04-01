@@ -11,30 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UsersMfeWhereUniqueInput } from "./UsersMfeWhereUniqueInput";
+import { UserMfeWhereUniqueInput } from "./UserMfeWhereUniqueInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { UsersMfeUpdateInput } from "./UsersMfeUpdateInput";
 
 @ArgsType()
-class UpdateUsersMfeArgs {
+class DeleteUserMfeArgs {
   @ApiProperty({
     required: true,
-    type: () => UsersMfeWhereUniqueInput,
+    type: () => UserMfeWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => UsersMfeWhereUniqueInput)
-  @Field(() => UsersMfeWhereUniqueInput, { nullable: false })
-  where!: UsersMfeWhereUniqueInput;
-
-  @ApiProperty({
-    required: true,
-    type: () => UsersMfeUpdateInput,
-  })
-  @ValidateNested()
-  @Type(() => UsersMfeUpdateInput)
-  @Field(() => UsersMfeUpdateInput, { nullable: false })
-  data!: UsersMfeUpdateInput;
+  @Type(() => UserMfeWhereUniqueInput)
+  @Field(() => UserMfeWhereUniqueInput, { nullable: false })
+  where!: UserMfeWhereUniqueInput;
 }
 
-export { UpdateUsersMfeArgs as UpdateUsersMfeArgs };
+export { DeleteUserMfeArgs as DeleteUserMfeArgs };

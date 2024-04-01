@@ -11,24 +11,24 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
+import { MfeUpdateManyWithoutUserMfesInput } from "./MfeUpdateManyWithoutUserMfesInput";
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { UserMfeCreateNestedManyWithoutUsersInput } from "./UserMfeCreateNestedManyWithoutUsersInput";
+import { UserUpdateManyWithoutUserMfesInput } from "./UserUpdateManyWithoutUserMfesInput";
 
 @InputType()
-class UserCreateInput {
+class UserMfeUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => MfeWhereUniqueInput,
+    type: () => MfeUpdateManyWithoutUserMfesInput,
   })
   @ValidateNested()
-  @Type(() => MfeWhereUniqueInput)
+  @Type(() => MfeUpdateManyWithoutUserMfesInput)
   @IsOptional()
-  @Field(() => MfeWhereUniqueInput, {
+  @Field(() => MfeUpdateManyWithoutUserMfesInput, {
     nullable: true,
   })
-  mfes?: MfeWhereUniqueInput | null;
+  mfe?: MfeUpdateManyWithoutUserMfesInput;
 
   @ApiProperty({
     required: false,
@@ -39,7 +39,19 @@ class UserCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  name?: string | null;
+  mfeId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserUpdateManyWithoutUserMfesInput,
+  })
+  @ValidateNested()
+  @Type(() => UserUpdateManyWithoutUserMfesInput)
+  @IsOptional()
+  @Field(() => UserUpdateManyWithoutUserMfesInput, {
+    nullable: true,
+  })
+  user?: UserUpdateManyWithoutUserMfesInput;
 
   @ApiProperty({
     required: false,
@@ -50,19 +62,7 @@ class UserCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  username?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserMfeCreateNestedManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => UserMfeCreateNestedManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => UserMfeCreateNestedManyWithoutUsersInput, {
-    nullable: true,
-  })
-  usersMfes?: UserMfeCreateNestedManyWithoutUsersInput;
+  userId?: string | null;
 }
 
-export { UserCreateInput as UserCreateInput };
+export { UserMfeUpdateInput as UserMfeUpdateInput };

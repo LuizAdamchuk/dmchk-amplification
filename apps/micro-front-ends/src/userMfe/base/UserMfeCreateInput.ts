@@ -11,24 +11,24 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
+import { MfeCreateNestedManyWithoutUserMfesInput } from "./MfeCreateNestedManyWithoutUserMfesInput";
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { UserMfeCreateNestedManyWithoutUsersInput } from "./UserMfeCreateNestedManyWithoutUsersInput";
+import { UserCreateNestedManyWithoutUserMfesInput } from "./UserCreateNestedManyWithoutUserMfesInput";
 
 @InputType()
-class UserCreateInput {
+class UserMfeCreateInput {
   @ApiProperty({
     required: false,
-    type: () => MfeWhereUniqueInput,
+    type: () => MfeCreateNestedManyWithoutUserMfesInput,
   })
   @ValidateNested()
-  @Type(() => MfeWhereUniqueInput)
+  @Type(() => MfeCreateNestedManyWithoutUserMfesInput)
   @IsOptional()
-  @Field(() => MfeWhereUniqueInput, {
+  @Field(() => MfeCreateNestedManyWithoutUserMfesInput, {
     nullable: true,
   })
-  mfes?: MfeWhereUniqueInput | null;
+  mfe?: MfeCreateNestedManyWithoutUserMfesInput;
 
   @ApiProperty({
     required: false,
@@ -39,7 +39,19 @@ class UserCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  name?: string | null;
+  mfeId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserCreateNestedManyWithoutUserMfesInput,
+  })
+  @ValidateNested()
+  @Type(() => UserCreateNestedManyWithoutUserMfesInput)
+  @IsOptional()
+  @Field(() => UserCreateNestedManyWithoutUserMfesInput, {
+    nullable: true,
+  })
+  user?: UserCreateNestedManyWithoutUserMfesInput;
 
   @ApiProperty({
     required: false,
@@ -50,19 +62,7 @@ class UserCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  username?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserMfeCreateNestedManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => UserMfeCreateNestedManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => UserMfeCreateNestedManyWithoutUsersInput, {
-    nullable: true,
-  })
-  usersMfes?: UserMfeCreateNestedManyWithoutUsersInput;
+  userId?: string | null;
 }
 
-export { UserCreateInput as UserCreateInput };
+export { UserMfeCreateInput as UserMfeCreateInput };

@@ -18,7 +18,7 @@ import { SortOrder } from "../../util/SortOrder";
   isAbstract: true,
   description: undefined,
 })
-class UsersMfeOrderByInput {
+class UserMfeOrderByInput {
   @ApiProperty({
     required: false,
     enum: ["asc", "desc"],
@@ -72,7 +72,7 @@ class UsersMfeOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  userD?: SortOrder;
+  userId?: SortOrder;
 }
 
-export { UsersMfeOrderByInput as UsersMfeOrderByInput };
+export { UserMfeOrderByInput as UserMfeOrderByInput };

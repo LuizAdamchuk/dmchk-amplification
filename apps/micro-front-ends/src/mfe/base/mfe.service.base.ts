@@ -10,7 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Mfe } from "@prisma/client";
+
+import {
+  Prisma,
+  Mfe, // @ts-ignore
+  UserMfe, // @ts-ignore
+  User,
+} from "@prisma/client";
 
 export class MfeServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +51,43 @@ export class MfeServiceBase {
     args: Prisma.SelectSubset<T, Prisma.MfeDeleteArgs>
   ): Promise<Mfe> {
     return this.prisma.mfe.delete(args);
+  }
+
+  async findMfes(
+    parentId: string,
+    args: Prisma.MfeFindManyArgs
+  ): Promise<Mfe[]> {
+    return this.prisma.mfe
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .mfes(args);
+  }
+
+  async findUsersMfes(
+    parentId: string,
+    args: Prisma.UserMfeFindManyArgs
+  ): Promise<UserMfe[]> {
+    return this.prisma.mfe
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .usersMfes(args);
+  }
+
+  async getMfe(parentId: string): Promise<Mfe | null> {
+    return this.prisma.mfe
+      .findUnique({
+        where: { id: parentId },
+      })
+      .mfe();
+  }
+
+  async getUser(parentId: string): Promise<User | null> {
+    return this.prisma.mfe
+      .findUnique({
+        where: { id: parentId },
+      })
+      .user();
   }
 }
