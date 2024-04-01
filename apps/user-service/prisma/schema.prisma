@@ -14,3 +14,13 @@ model UserA {
   updatedAt DateTime @updatedAt
   username  String?
 }
+
+model Mfe {
+  active                 Boolean?
+  authenticationRequired Boolean?
+  createdAt              DateTime @default(now())
+  description            String?
+  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
+  key                    String?  @unique
+  updatedAt              DateTime @updatedAt
+}
