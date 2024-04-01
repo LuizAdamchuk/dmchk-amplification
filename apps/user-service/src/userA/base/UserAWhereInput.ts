@@ -13,7 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { MfeListRelationFilter } from "../../mfe/base/MfeListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 
 @InputType()
@@ -28,6 +29,18 @@ class UserAWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MfeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => MfeListRelationFilter)
+  @IsOptional()
+  @Field(() => MfeListRelationFilter, {
+    nullable: true,
+  })
+  mfes?: MfeListRelationFilter;
 
   @ApiProperty({
     required: false,

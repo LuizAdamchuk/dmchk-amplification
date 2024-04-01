@@ -10,6 +10,8 @@ generator client {
 model UserA {
   createdAt DateTime @default(now())
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  mfes      Mfe[]    @relation(fields: [mfesIds], references: [id])
+  mfesIds   String[] @db.ObjectId
   name      String?
   updatedAt DateTime @updatedAt
   username  String?
@@ -22,5 +24,7 @@ model Mfe {
   description            String?
   id                     String   @id @default(auto()) @map("_id") @db.ObjectId
   key                    String?  @unique
+  mfe                    UserA[]  @relation(fields: [mfeIds], references: [id])
+  mfeIds                 String[] @db.ObjectId
   updatedAt              DateTime @updatedAt
 }
