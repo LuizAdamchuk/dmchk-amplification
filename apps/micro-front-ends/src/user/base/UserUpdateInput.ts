@@ -11,25 +11,12 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
-import { ValidateNested, IsOptional, IsString } from "class-validator";
-import { Type } from "class-transformer";
+import { IsString, IsOptional, ValidateNested } from "class-validator";
 import { UserMfeUpdateManyWithoutUsersInput } from "./UserMfeUpdateManyWithoutUsersInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class UserUpdateInput {
-  @ApiProperty({
-    required: false,
-    type: () => MfeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => MfeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => MfeWhereUniqueInput, {
-    nullable: true,
-  })
-  mfes?: MfeWhereUniqueInput | null;
-
   @ApiProperty({
     required: false,
     type: String,

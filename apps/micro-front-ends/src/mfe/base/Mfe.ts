@@ -19,7 +19,6 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { User } from "../../user/base/User";
 import { UserMfe } from "../../userMfe/base/UserMfe";
 
 @ObjectType()
@@ -85,39 +84,12 @@ class Mfe {
   key!: string | null;
 
   @ApiProperty({
-    required: false,
-    type: () => Mfe,
-  })
-  @ValidateNested()
-  @Type(() => Mfe)
-  @IsOptional()
-  mfe?: Mfe | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Mfe],
-  })
-  @ValidateNested()
-  @Type(() => Mfe)
-  @IsOptional()
-  mfes?: Array<Mfe>;
-
-  @ApiProperty({
     required: true,
   })
   @IsDate()
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => User,
-  })
-  @ValidateNested()
-  @Type(() => User)
-  @IsOptional()
-  user?: User | null;
 
   @ApiProperty({
     required: false,

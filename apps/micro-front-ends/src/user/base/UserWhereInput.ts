@@ -14,7 +14,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { UserMfeListRelationFilter } from "../../userMfe/base/UserMfeListRelationFilter";
 
@@ -30,18 +29,6 @@ class UserWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => MfeWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => MfeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => MfeWhereUniqueInput, {
-    nullable: true,
-  })
-  mfes?: MfeWhereUniqueInput;
 
   @ApiProperty({
     required: false,

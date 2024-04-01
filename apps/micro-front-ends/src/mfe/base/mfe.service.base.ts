@@ -14,8 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Mfe, // @ts-ignore
-  UserMfe, // @ts-ignore
-  User,
+  UserMfe,
 } from "@prisma/client";
 
 export class MfeServiceBase {
@@ -53,17 +52,6 @@ export class MfeServiceBase {
     return this.prisma.mfe.delete(args);
   }
 
-  async findMfes(
-    parentId: string,
-    args: Prisma.MfeFindManyArgs
-  ): Promise<Mfe[]> {
-    return this.prisma.mfe
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .mfes(args);
-  }
-
   async findUsersMfes(
     parentId: string,
     args: Prisma.UserMfeFindManyArgs
@@ -73,21 +61,5 @@ export class MfeServiceBase {
         where: { id: parentId },
       })
       .usersMfes(args);
-  }
-
-  async getMfe(parentId: string): Promise<Mfe | null> {
-    return this.prisma.mfe
-      .findUnique({
-        where: { id: parentId },
-      })
-      .mfe();
-  }
-
-  async getUser(parentId: string): Promise<User | null> {
-    return this.prisma.mfe
-      .findUnique({
-        where: { id: parentId },
-      })
-      .user();
   }
 }
