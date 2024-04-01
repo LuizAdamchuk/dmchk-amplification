@@ -32,3 +32,4 @@ model UsersMfe {
   updatedAt DateTime @updatedAt
   userD     String?
 }
+
