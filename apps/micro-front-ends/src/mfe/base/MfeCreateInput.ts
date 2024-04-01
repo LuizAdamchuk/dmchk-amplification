@@ -11,7 +11,17 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsOptional, IsString } from "class-validator";
+import {
+  IsBoolean,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from "class-validator";
+import { MfeWhereUniqueInput } from "./MfeWhereUniqueInput";
+import { Type } from "class-transformer";
+import { MfeCreateNestedManyWithoutMfesInput } from "./MfeCreateNestedManyWithoutMfesInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { UserMfeCreateNestedManyWithoutMfesInput } from "./UserMfeCreateNestedManyWithoutMfesInput";
 
 @InputType()
 class MfeCreateInput {
@@ -58,6 +68,54 @@ class MfeCreateInput {
     nullable: true,
   })
   key?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MfeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MfeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MfeWhereUniqueInput, {
+    nullable: true,
+  })
+  mfe?: MfeWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MfeCreateNestedManyWithoutMfesInput,
+  })
+  @ValidateNested()
+  @Type(() => MfeCreateNestedManyWithoutMfesInput)
+  @IsOptional()
+  @Field(() => MfeCreateNestedManyWithoutMfesInput, {
+    nullable: true,
+  })
+  mfes?: MfeCreateNestedManyWithoutMfesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  user?: UserWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserMfeCreateNestedManyWithoutMfesInput,
+  })
+  @ValidateNested()
+  @Type(() => UserMfeCreateNestedManyWithoutMfesInput)
+  @IsOptional()
+  @Field(() => UserMfeCreateNestedManyWithoutMfesInput, {
+    nullable: true,
+  })
+  usersMfes?: UserMfeCreateNestedManyWithoutMfesInput;
 }
 
 export { MfeCreateInput as MfeCreateInput };

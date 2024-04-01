@@ -11,46 +11,46 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UsersMfeWhereInput } from "./UsersMfeWhereInput";
+import { UserMfeWhereInput } from "./UserMfeWhereInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
-class UsersMfeListRelationFilter {
+class UserMfeListRelationFilter {
   @ApiProperty({
     required: false,
-    type: () => UsersMfeWhereInput,
+    type: () => UserMfeWhereInput,
   })
   @ValidateNested()
-  @Type(() => UsersMfeWhereInput)
+  @Type(() => UserMfeWhereInput)
   @IsOptional()
-  @Field(() => UsersMfeWhereInput, {
+  @Field(() => UserMfeWhereInput, {
     nullable: true,
   })
-  every?: UsersMfeWhereInput;
+  every?: UserMfeWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => UsersMfeWhereInput,
+    type: () => UserMfeWhereInput,
   })
   @ValidateNested()
-  @Type(() => UsersMfeWhereInput)
+  @Type(() => UserMfeWhereInput)
   @IsOptional()
-  @Field(() => UsersMfeWhereInput, {
+  @Field(() => UserMfeWhereInput, {
     nullable: true,
   })
-  some?: UsersMfeWhereInput;
+  some?: UserMfeWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => UsersMfeWhereInput,
+    type: () => UserMfeWhereInput,
   })
   @ValidateNested()
-  @Type(() => UsersMfeWhereInput)
+  @Type(() => UserMfeWhereInput)
   @IsOptional()
-  @Field(() => UsersMfeWhereInput, {
+  @Field(() => UserMfeWhereInput, {
     nullable: true,
   })
-  none?: UsersMfeWhereInput;
+  none?: UserMfeWhereInput;
 }
-export { UsersMfeListRelationFilter as UsersMfeListRelationFilter };
+export { UserMfeListRelationFilter as UserMfeListRelationFilter };

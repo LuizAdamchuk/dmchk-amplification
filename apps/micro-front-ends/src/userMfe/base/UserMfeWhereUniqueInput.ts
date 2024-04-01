@@ -9,22 +9,19 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ArgsType, Field } from "@nestjs/graphql";
+import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UsersMfeCreateInput } from "./UsersMfeCreateInput";
-import { ValidateNested } from "class-validator";
-import { Type } from "class-transformer";
+import { IsString } from "class-validator";
 
-@ArgsType()
-class CreateUsersMfeArgs {
+@InputType()
+class UserMfeWhereUniqueInput {
   @ApiProperty({
     required: true,
-    type: () => UsersMfeCreateInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => UsersMfeCreateInput)
-  @Field(() => UsersMfeCreateInput, { nullable: false })
-  data!: UsersMfeCreateInput;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 }
 
-export { CreateUsersMfeArgs as CreateUsersMfeArgs };
+export { UserMfeWhereUniqueInput as UserMfeWhereUniqueInput };
