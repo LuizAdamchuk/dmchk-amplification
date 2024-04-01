@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { UserAModule } from "./userA/userA.module";
+import { MfeModule } from "./mfe/mfe.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -11,6 +12,7 @@ import { ConfigModule } from "@nestjs/config";
   controllers: [],
   imports: [
     UserAModule,
+    MfeModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
