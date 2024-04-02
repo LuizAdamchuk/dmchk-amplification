@@ -18,7 +18,7 @@ import { MfeListRelationFilter } from "../../mfe/base/MfeListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 
 @InputType()
-class UserAWhereInput {
+class UsersWhereInput {
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -65,4 +65,4 @@ class UserAWhereInput {
   username?: StringNullableFilter;
 }
 
-export { UserAWhereInput as UserAWhereInput };
+export { UsersWhereInput as UsersWhereInput };

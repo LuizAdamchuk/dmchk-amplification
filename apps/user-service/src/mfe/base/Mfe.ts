@@ -19,7 +19,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { UserA } from "../../userA/base/UserA";
+import { Users } from "../../users/base/Users";
 
 @ObjectType()
 class Mfe {
@@ -93,12 +93,12 @@ class Mfe {
 
   @ApiProperty({
     required: false,
-    type: () => [UserA],
+    type: () => [Users],
   })
   @ValidateNested()
-  @Type(() => UserA)
+  @Type(() => Users)
   @IsOptional()
-  UserA?: Array<UserA>;
+  UserA?: Array<Users>;
 }
 
 export { Mfe as Mfe };

@@ -16,22 +16,22 @@ import * as errors from "../../errors";
 import { Request } from "express";
 import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
-import { UserAService } from "../userA.service";
-import { UserACreateInput } from "./UserACreateInput";
-import { UserA } from "./UserA";
-import { UserAFindManyArgs } from "./UserAFindManyArgs";
-import { UserAWhereUniqueInput } from "./UserAWhereUniqueInput";
-import { UserAUpdateInput } from "./UserAUpdateInput";
+import { UsersService } from "../users.service";
+import { UsersCreateInput } from "./UsersCreateInput";
+import { Users } from "./Users";
+import { UsersFindManyArgs } from "./UsersFindManyArgs";
+import { UsersWhereUniqueInput } from "./UsersWhereUniqueInput";
+import { UsersUpdateInput } from "./UsersUpdateInput";
 import { MfeFindManyArgs } from "../../mfe/base/MfeFindManyArgs";
 import { Mfe } from "../../mfe/base/Mfe";
 import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
 
-export class UserAControllerBase {
-  constructor(protected readonly service: UserAService) {}
+export class UsersControllerBase {
+  constructor(protected readonly service: UsersService) {}
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: UserA })
-  async createUserA(@common.Body() data: UserACreateInput): Promise<UserA> {
-    return await this.service.createUserA({
+  @swagger.ApiCreatedResponse({ type: Users })
+  async createUsers(@common.Body() data: UsersCreateInput): Promise<Users> {
+    return await this.service.createUsers({
       data: data,
       select: {
         createdAt: true,
@@ -44,11 +44,11 @@ export class UserAControllerBase {
   }
 
   @common.Get()
-  @swagger.ApiOkResponse({ type: [UserA] })
-  @ApiNestedQuery(UserAFindManyArgs)
-  async userAS(@common.Req() request: Request): Promise<UserA[]> {
-    const args = plainToClass(UserAFindManyArgs, request.query);
-    return this.service.userAS({
+  @swagger.ApiOkResponse({ type: [Users] })
+  @ApiNestedQuery(UsersFindManyArgs)
+  async usersItems(@common.Req() request: Request): Promise<Users[]> {
+    const args = plainToClass(UsersFindManyArgs, request.query);
+    return this.service.usersItems({
       ...args,
       select: {
         createdAt: true,
@@ -61,12 +61,12 @@ export class UserAControllerBase {
   }
 
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: UserA })
+  @swagger.ApiOkResponse({ type: Users })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  async userA(
-    @common.Param() params: UserAWhereUniqueInput
-  ): Promise<UserA | null> {
-    const result = await this.service.userA({
+  async users(
+    @common.Param() params: UsersWhereUniqueInput
+  ): Promise<Users | null> {
+    const result = await this.service.users({
       where: params,
       select: {
         createdAt: true,
@@ -85,14 +85,14 @@ export class UserAControllerBase {
   }
 
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: UserA })
+  @swagger.ApiOkResponse({ type: Users })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  async updateUserA(
-    @common.Param() params: UserAWhereUniqueInput,
-    @common.Body() data: UserAUpdateInput
-  ): Promise<UserA | null> {
+  async updateUsers(
+    @common.Param() params: UsersWhereUniqueInput,
+    @common.Body() data: UsersUpdateInput
+  ): Promise<Users | null> {
     try {
-      return await this.service.updateUserA({
+      return await this.service.updateUsers({
         where: params,
         data: data,
         select: {
@@ -114,13 +114,13 @@ export class UserAControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: UserA })
+  @swagger.ApiOkResponse({ type: Users })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
-  async deleteUserA(
-    @common.Param() params: UserAWhereUniqueInput
-  ): Promise<UserA | null> {
+  async deleteUsers(
+    @common.Param() params: UsersWhereUniqueInput
+  ): Promise<Users | null> {
     try {
-      return await this.service.deleteUserA({
+      return await this.service.deleteUsers({
         where: params,
         select: {
           createdAt: true,
@@ -144,7 +144,7 @@ export class UserAControllerBase {
   @ApiNestedQuery(MfeFindManyArgs)
   async findMfes(
     @common.Req() request: Request,
-    @common.Param() params: UserAWhereUniqueInput
+    @common.Param() params: UsersWhereUniqueInput
   ): Promise<Mfe[]> {
     const query = plainToClass(MfeFindManyArgs, request.query);
     const results = await this.service.findMfes(params.id, {
@@ -169,7 +169,7 @@ export class UserAControllerBase {
 
   @common.Post("/:id/mfes")
   async connectMfes(
-    @common.Param() params: UserAWhereUniqueInput,
+    @common.Param() params: UsersWhereUniqueInput,
     @common.Body() body: MfeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
@@ -177,7 +177,7 @@ export class UserAControllerBase {
         connect: body,
       },
     };
-    await this.service.updateUserA({
+    await this.service.updateUsers({
       where: params,
       data,
       select: { id: true },
@@ -186,7 +186,7 @@ export class UserAControllerBase {
 
   @common.Patch("/:id/mfes")
   async updateMfes(
-    @common.Param() params: UserAWhereUniqueInput,
+    @common.Param() params: UsersWhereUniqueInput,
     @common.Body() body: MfeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
@@ -194,7 +194,7 @@ export class UserAControllerBase {
         set: body,
       },
     };
-    await this.service.updateUserA({
+    await this.service.updateUsers({
       where: params,
       data,
       select: { id: true },
@@ -203,7 +203,7 @@ export class UserAControllerBase {
 
   @common.Delete("/:id/mfes")
   async disconnectMfes(
-    @common.Param() params: UserAWhereUniqueInput,
+    @common.Param() params: UsersWhereUniqueInput,
     @common.Body() body: MfeWhereUniqueInput[]
   ): Promise<void> {
     const data = {
@@ -211,7 +211,7 @@ export class UserAControllerBase {
         disconnect: body,
       },
     };
-    await this.service.updateUserA({
+    await this.service.updateUsers({
       where: params,
       data,
       select: { id: true },

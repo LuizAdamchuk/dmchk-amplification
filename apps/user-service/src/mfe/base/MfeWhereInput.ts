@@ -16,8 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { UserAListRelationFilter } from "../../userA/base/UserAListRelationFilter";
-import { UserA } from "../../userA/base/UserA";
+import { UsersListRelationFilter } from "../../users/base/UsersListRelationFilter";
 
 @InputType()
 class MfeWhereInput {
@@ -78,15 +77,15 @@ class MfeWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => UserAListRelationFilter,
+    type: () => UsersListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => UserAListRelationFilter)
+  @Type(() => UsersListRelationFilter)
   @IsOptional()
-  @Field(() => UserAListRelationFilter, {
+  @Field(() => UsersListRelationFilter, {
     nullable: true,
   })
-  UserA?: UserAListRelationFilter;
+  UserA?: UsersListRelationFilter;
 }
 
 export { MfeWhereInput as MfeWhereInput };

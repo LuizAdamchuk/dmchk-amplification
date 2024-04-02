@@ -17,9 +17,8 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
-import { UserACreateNestedManyWithoutMfesInput } from "./UserACreateNestedManyWithoutMfesInput";
+import { UsersCreateNestedManyWithoutMfesInput } from "./UsersCreateNestedManyWithoutMfesInput";
 import { Type } from "class-transformer";
-import { UserA } from "../../userA/base/UserA";
 
 @InputType()
 class MfeCreateInput {
@@ -69,15 +68,15 @@ class MfeCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => UserACreateNestedManyWithoutMfesInput,
+    type: () => UsersCreateNestedManyWithoutMfesInput,
   })
   @ValidateNested()
-  @Type(() => UserACreateNestedManyWithoutMfesInput)
+  @Type(() => UsersCreateNestedManyWithoutMfesInput)
   @IsOptional()
-  @Field(() => UserACreateNestedManyWithoutMfesInput, {
+  @Field(() => UsersCreateNestedManyWithoutMfesInput, {
     nullable: true,
   })
-  UserA?: UserACreateNestedManyWithoutMfesInput;
+  UserA?: UsersCreateNestedManyWithoutMfesInput;
 }
 
 export { MfeCreateInput as MfeCreateInput };
