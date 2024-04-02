@@ -17,9 +17,8 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
-import { UserAUpdateManyWithoutMfesInput } from "./UserAUpdateManyWithoutMfesInput";
+import { UsersUpdateManyWithoutMfesInput } from "./UsersUpdateManyWithoutMfesInput";
 import { Type } from "class-transformer";
-import { UserA } from "../../userA/base/UserA";
 
 @InputType()
 class MfeUpdateInput {
@@ -69,15 +68,15 @@ class MfeUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => UserAUpdateManyWithoutMfesInput,
+    type: () => UsersUpdateManyWithoutMfesInput,
   })
   @ValidateNested()
-  @Type(() => UserAUpdateManyWithoutMfesInput)
+  @Type(() => UsersUpdateManyWithoutMfesInput)
   @IsOptional()
-  @Field(() => UserAUpdateManyWithoutMfesInput, {
+  @Field(() => UsersUpdateManyWithoutMfesInput, {
     nullable: true,
   })
-  UserA?: UserAUpdateManyWithoutMfesInput;
+  UserA?: UsersUpdateManyWithoutMfesInput;
 }
 
 export { MfeUpdateInput as MfeUpdateInput };

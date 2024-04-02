@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { UserAModule } from "./userA/userA.module";
+import { UsersModule } from "./users/users.module";
 import { MfeModule } from "./mfe/mfe.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -11,7 +11,7 @@ import { ConfigModule } from "@nestjs/config";
 @Module({
   controllers: [],
   imports: [
-    UserAModule,
+    UsersModule,
     MfeModule,
     HealthModule,
     PrismaModule,

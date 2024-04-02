@@ -11,32 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserAWhereInput } from "./UserAWhereInput";
+import { UsersWhereInput } from "./UsersWhereInput";
 import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { UserAOrderByInput } from "./UserAOrderByInput";
+import { UsersOrderByInput } from "./UsersOrderByInput";
 
 @ArgsType()
-class UserAFindManyArgs {
+class UsersFindManyArgs {
   @ApiProperty({
     required: false,
-    type: () => UserAWhereInput,
+    type: () => UsersWhereInput,
   })
   @IsOptional()
   @ValidateNested()
-  @Field(() => UserAWhereInput, { nullable: true })
-  @Type(() => UserAWhereInput)
-  where?: UserAWhereInput;
+  @Field(() => UsersWhereInput, { nullable: true })
+  @Type(() => UsersWhereInput)
+  where?: UsersWhereInput;
 
   @ApiProperty({
     required: false,
-    type: [UserAOrderByInput],
+    type: [UsersOrderByInput],
   })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Field(() => [UserAOrderByInput], { nullable: true })
-  @Type(() => UserAOrderByInput)
-  orderBy?: Array<UserAOrderByInput>;
+  @Field(() => [UsersOrderByInput], { nullable: true })
+  @Type(() => UsersOrderByInput)
+  orderBy?: Array<UsersOrderByInput>;
 
   @ApiProperty({
     required: false,
@@ -59,4 +59,4 @@ class UserAFindManyArgs {
   take?: number;
 }
 
-export { UserAFindManyArgs as UserAFindManyArgs };
+export { UsersFindManyArgs as UsersFindManyArgs };

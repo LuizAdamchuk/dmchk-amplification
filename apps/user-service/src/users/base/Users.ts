@@ -9,25 +9,38 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { MfeCreateNestedManyWithoutUserAsInput } from "./MfeCreateNestedManyWithoutUserAsInput";
-import { ValidateNested, IsOptional, IsString } from "class-validator";
+import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { Mfe } from "../../mfe/base/Mfe";
 
-@InputType()
-class UserACreateInput {
+@ObjectType()
+class Users {
+  @ApiProperty({
+    required: true,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  createdAt!: Date;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
+  id!: string;
+
   @ApiProperty({
     required: false,
-    type: () => MfeCreateNestedManyWithoutUserAsInput,
+    type: () => [Mfe],
   })
   @ValidateNested()
-  @Type(() => MfeCreateNestedManyWithoutUserAsInput)
+  @Type(() => Mfe)
   @IsOptional()
-  @Field(() => MfeCreateNestedManyWithoutUserAsInput, {
-    nullable: true,
-  })
-  mfes?: MfeCreateNestedManyWithoutUserAsInput;
+  mfes?: Array<Mfe>;
 
   @ApiProperty({
     required: false,
@@ -38,7 +51,15 @@ class UserACreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  name?: string | null;
+  name!: string | null;
+
+  @ApiProperty({
+    required: true,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  updatedAt!: Date;
 
   @ApiProperty({
     required: false,
@@ -49,7 +70,7 @@ class UserACreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  username?: string | null;
+  username!: string | null;
 }
 
-export { UserACreateInput as UserACreateInput };
+export { Users as Users };

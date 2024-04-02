@@ -22,9 +22,9 @@ import { Mfe } from "./Mfe";
 import { MfeFindManyArgs } from "./MfeFindManyArgs";
 import { MfeWhereUniqueInput } from "./MfeWhereUniqueInput";
 import { MfeUpdateInput } from "./MfeUpdateInput";
-import { UserAFindManyArgs } from "../../userA/base/UserAFindManyArgs";
-import { UserA } from "../../userA/base/UserA";
-import { UserAWhereUniqueInput } from "../../userA/base/UserAWhereUniqueInput";
+import { UsersFindManyArgs } from "../../users/base/UsersFindManyArgs";
+import { Users } from "../../users/base/Users";
+import { UsersWhereUniqueInput } from "../../users/base/UsersWhereUniqueInput";
 
 export class MfeControllerBase {
   constructor(protected readonly service: MfeService) {}
@@ -149,12 +149,12 @@ export class MfeControllerBase {
   }
 
   @common.Get("/:id/UserA")
-  @ApiNestedQuery(UserAFindManyArgs)
+  @ApiNestedQuery(UsersFindManyArgs)
   async findUserA(
     @common.Req() request: Request,
     @common.Param() params: MfeWhereUniqueInput
-  ): Promise<UserA[]> {
-    const query = plainToClass(UserAFindManyArgs, request.query);
+  ): Promise<Users[]> {
+    const query = plainToClass(UsersFindManyArgs, request.query);
     const results = await this.service.findUserA(params.id, {
       ...query,
       select: {
@@ -176,7 +176,7 @@ export class MfeControllerBase {
   @common.Post("/:id/UserA")
   async connectUserA(
     @common.Param() params: MfeWhereUniqueInput,
-    @common.Body() body: UserAWhereUniqueInput[]
+    @common.Body() body: UsersWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       UserA: {
@@ -193,7 +193,7 @@ export class MfeControllerBase {
   @common.Patch("/:id/UserA")
   async updateUserA(
     @common.Param() params: MfeWhereUniqueInput,
-    @common.Body() body: UserAWhereUniqueInput[]
+    @common.Body() body: UsersWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       UserA: {
@@ -210,7 +210,7 @@ export class MfeControllerBase {
   @common.Delete("/:id/UserA")
   async disconnectUserA(
     @common.Param() params: MfeWhereUniqueInput,
-    @common.Body() body: UserAWhereUniqueInput[]
+    @common.Body() body: UsersWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       UserA: {

@@ -12,8 +12,8 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { UserAController } from "../userA.controller";
-import { UserAService } from "../userA.service";
+import { UsersController } from "../users.controller";
+import { UsersService } from "../users.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -49,11 +49,11 @@ const FIND_ONE_RESULT = {
 };
 
 const service = {
-  createUserA() {
+  createUsers() {
     return CREATE_RESULT;
   },
-  userAS: () => FIND_MANY_RESULT,
-  userA: ({ where }: { where: { id: string } }) => {
+  usersItems: () => FIND_MANY_RESULT,
+  users: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -95,18 +95,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("UserA", () => {
+describe("Users", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: UserAService,
+          provide: UsersService,
           useValue: service,
         },
       ],
-      controllers: [UserAController],
+      controllers: [UsersController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -123,9 +123,9 @@ describe("UserA", () => {
     await app.init();
   });
 
-  test("POST /userAs", async () => {
+  test("POST /users", async () => {
     await request(app.getHttpServer())
-      .post("/userAs")
+      .post("/users")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -135,9 +135,9 @@ describe("UserA", () => {
       });
   });
 
-  test("GET /userAs", async () => {
+  test("GET /users", async () => {
     await request(app.getHttpServer())
-      .get("/userAs")
+      .get("/users")
       .expect(HttpStatus.OK)
       .expect([
         {
@@ -148,9 +148,9 @@ describe("UserA", () => {
       ]);
   });
 
-  test("GET /userAs/:id non existing", async () => {
+  test("GET /users/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/userAs"}/${nonExistingId}`)
+      .get(`${"/users"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -159,9 +159,9 @@ describe("UserA", () => {
       });
   });
 
-  test("GET /userAs/:id existing", async () => {
+  test("GET /users/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/userAs"}/${existingId}`)
+      .get(`${"/users"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
@@ -170,10 +170,10 @@ describe("UserA", () => {
       });
   });
 
-  test("POST /userAs existing resource", async () => {
+  test("POST /users existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/userAs")
+      .post("/users")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -183,7 +183,7 @@ describe("UserA", () => {
       })
       .then(function () {
         agent
-          .post("/userAs")
+          .post("/users")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({

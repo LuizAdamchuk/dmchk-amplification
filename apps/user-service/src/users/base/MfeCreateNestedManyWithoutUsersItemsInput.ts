@@ -14,7 +14,7 @@ import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
 
 @InputType()
-class MfeUpdateManyWithoutUserAsInput {
+class MfeCreateNestedManyWithoutUsersItemsInput {
   @Field(() => [MfeWhereUniqueInput], {
     nullable: true,
   })
@@ -23,24 +23,6 @@ class MfeUpdateManyWithoutUserAsInput {
     type: () => [MfeWhereUniqueInput],
   })
   connect?: Array<MfeWhereUniqueInput>;
-
-  @Field(() => [MfeWhereUniqueInput], {
-    nullable: true,
-  })
-  @ApiProperty({
-    required: false,
-    type: () => [MfeWhereUniqueInput],
-  })
-  disconnect?: Array<MfeWhereUniqueInput>;
-
-  @Field(() => [MfeWhereUniqueInput], {
-    nullable: true,
-  })
-  @ApiProperty({
-    required: false,
-    type: () => [MfeWhereUniqueInput],
-  })
-  set?: Array<MfeWhereUniqueInput>;
 }
 
-export { MfeUpdateManyWithoutUserAsInput as MfeUpdateManyWithoutUserAsInput };
+export { MfeCreateNestedManyWithoutUsersItemsInput as MfeCreateNestedManyWithoutUsersItemsInput };

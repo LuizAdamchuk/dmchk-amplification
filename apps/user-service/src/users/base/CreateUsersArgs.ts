@@ -9,20 +9,22 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
-import { MfeWhereUniqueInput } from "../../mfe/base/MfeWhereUniqueInput";
+import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { UsersCreateInput } from "./UsersCreateInput";
+import { ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
 
-@InputType()
-class MfeCreateNestedManyWithoutUserAsInput {
-  @Field(() => [MfeWhereUniqueInput], {
-    nullable: true,
-  })
+@ArgsType()
+class CreateUsersArgs {
   @ApiProperty({
-    required: false,
-    type: () => [MfeWhereUniqueInput],
+    required: true,
+    type: () => UsersCreateInput,
   })
-  connect?: Array<MfeWhereUniqueInput>;
+  @ValidateNested()
+  @Type(() => UsersCreateInput)
+  @Field(() => UsersCreateInput, { nullable: false })
+  data!: UsersCreateInput;
 }
 
-export { MfeCreateNestedManyWithoutUserAsInput as MfeCreateNestedManyWithoutUserAsInput };
+export { CreateUsersArgs as CreateUsersArgs };

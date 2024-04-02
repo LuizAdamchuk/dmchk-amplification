@@ -11,18 +11,18 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserAWhereInput } from "./UserAWhereInput";
+import { UsersWhereInput } from "./UsersWhereInput";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class UserACountArgs {
+class UsersCountArgs {
   @ApiProperty({
     required: false,
-    type: () => UserAWhereInput,
+    type: () => UsersWhereInput,
   })
-  @Field(() => UserAWhereInput, { nullable: true })
-  @Type(() => UserAWhereInput)
-  where?: UserAWhereInput;
+  @Field(() => UsersWhereInput, { nullable: true })
+  @Type(() => UsersWhereInput)
+  where?: UsersWhereInput;
 }
 
-export { UserACountArgs as UserACountArgs };
+export { UsersCountArgs as UsersCountArgs };

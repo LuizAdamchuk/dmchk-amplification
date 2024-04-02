@@ -14,7 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Mfe, // @ts-ignore
-  UserA,
+  Users,
 } from "@prisma/client";
 
 export class MfeServiceBase {
@@ -54,8 +54,8 @@ export class MfeServiceBase {
 
   async findUserA(
     parentId: string,
-    args: Prisma.UserAFindManyArgs
-  ): Promise<UserA[]> {
+    args: Prisma.UsersFindManyArgs
+  ): Promise<Users[]> {
     return this.prisma.mfe
       .findUniqueOrThrow({
         where: { id: parentId },
