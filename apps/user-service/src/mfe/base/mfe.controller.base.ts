@@ -148,14 +148,14 @@ export class MfeControllerBase {
     }
   }
 
-  @common.Get("/:id/UserA")
+  @common.Get("/:id/User")
   @ApiNestedQuery(UsersFindManyArgs)
-  async findUserA(
+  async findUser(
     @common.Req() request: Request,
     @common.Param() params: MfeWhereUniqueInput
   ): Promise<Users[]> {
     const query = plainToClass(UsersFindManyArgs, request.query);
-    const results = await this.service.findUserA(params.id, {
+    const results = await this.service.findUser(params.id, {
       ...query,
       select: {
         createdAt: true,
@@ -173,13 +173,13 @@ export class MfeControllerBase {
     return results;
   }
 
-  @common.Post("/:id/UserA")
-  async connectUserA(
+  @common.Post("/:id/User")
+  async connectUser(
     @common.Param() params: MfeWhereUniqueInput,
     @common.Body() body: UsersWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      UserA: {
+      User: {
         connect: body,
       },
     };
@@ -190,13 +190,13 @@ export class MfeControllerBase {
     });
   }
 
-  @common.Patch("/:id/UserA")
-  async updateUserA(
+  @common.Patch("/:id/User")
+  async updateUser(
     @common.Param() params: MfeWhereUniqueInput,
     @common.Body() body: UsersWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      UserA: {
+      User: {
         set: body,
       },
     };
@@ -207,13 +207,13 @@ export class MfeControllerBase {
     });
   }
 
-  @common.Delete("/:id/UserA")
-  async disconnectUserA(
+  @common.Delete("/:id/User")
+  async disconnectUser(
     @common.Param() params: MfeWhereUniqueInput,
     @common.Body() body: UsersWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      UserA: {
+      User: {
         disconnect: body,
       },
     };

@@ -76,7 +76,7 @@ class MfeUpdateInput {
   @Field(() => UsersUpdateManyWithoutMfesInput, {
     nullable: true,
   })
-  UserA?: UsersUpdateManyWithoutMfesInput;
+  User?: UsersUpdateManyWithoutMfesInput;
 }
 
 export { MfeUpdateInput as MfeUpdateInput };

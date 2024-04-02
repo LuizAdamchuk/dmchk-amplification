@@ -85,7 +85,7 @@ class MfeWhereInput {
   @Field(() => UsersListRelationFilter, {
     nullable: true,
   })
-  UserA?: UsersListRelationFilter;
+  User?: UsersListRelationFilter;
 }
 
 export { MfeWhereInput as MfeWhereInput };
