@@ -76,7 +76,7 @@ class MfeCreateInput {
   @Field(() => UsersCreateNestedManyWithoutMfesInput, {
     nullable: true,
   })
-  UserA?: UsersCreateNestedManyWithoutMfesInput;
+  User?: UsersCreateNestedManyWithoutMfesInput;
 }
 
 export { MfeCreateInput as MfeCreateInput };

@@ -25,6 +25,6 @@ model Mfe {
   id                     String   @id @default(auto()) @map("_id") @db.ObjectId
   key                    String?  @unique
   updatedAt              DateTime @updatedAt
-  UserA                  Users[]  @relation(fields: [UserAIds], references: [id])
-  UserAIds               String[] @db.ObjectId
+  User                   Users[]  @relation(fields: [UserIds], references: [id])
+  UserIds                String[] @db.ObjectId
 }

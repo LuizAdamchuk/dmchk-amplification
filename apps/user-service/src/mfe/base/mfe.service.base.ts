@@ -52,7 +52,7 @@ export class MfeServiceBase {
     return this.prisma.mfe.delete(args);
   }
 
-  async findUserA(
+  async findUser(
     parentId: string,
     args: Prisma.UsersFindManyArgs
   ): Promise<Users[]> {
@@ -60,6 +60,6 @@ export class MfeServiceBase {
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .UserA(args);
+      .User(args);
   }
 }

@@ -98,7 +98,7 @@ class Mfe {
   @ValidateNested()
   @Type(() => Users)
   @IsOptional()
-  UserA?: Array<Users>;
+  User?: Array<Users>;
 }
 
 export { Mfe as Mfe };
