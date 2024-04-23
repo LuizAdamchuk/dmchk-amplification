@@ -1,0 +1,52 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  status    Boolean?
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model Organization {
+  createdAt DateTime @default(now())
+  domain    String?
+  id        String   @id @default(cuid())
+  name      String
+  owner     String?
+  slug      String   @unique
+  updatedAt DateTime @updatedAt
+}
+
+model Workspace {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String
+  slug      String
+  updatedAt DateTime @updatedAt
+}
+
+model QlikIntegration {
+  alias                String?
+  createdAt            DateTime @default(now())
+  domain               String
+  id                   String   @id @default(cuid())
+  issuer               Boolean?
+  keyId                String?
+  qlikId               String?
+  qlikTheme            String?
+  qlikWebIntegrationId String?
+  updatedAt            DateTime @updatedAt
+}
