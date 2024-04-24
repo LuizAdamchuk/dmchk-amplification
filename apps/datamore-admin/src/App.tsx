@@ -21,6 +21,26 @@ import { QlikIntegrationList } from "./qlikIntegration/QlikIntegrationList";
 import { QlikIntegrationCreate } from "./qlikIntegration/QlikIntegrationCreate";
 import { QlikIntegrationEdit } from "./qlikIntegration/QlikIntegrationEdit";
 import { QlikIntegrationShow } from "./qlikIntegration/QlikIntegrationShow";
+import { UserConfigList } from "./userConfig/UserConfigList";
+import { UserConfigCreate } from "./userConfig/UserConfigCreate";
+import { UserConfigEdit } from "./userConfig/UserConfigEdit";
+import { UserConfigShow } from "./userConfig/UserConfigShow";
+import { UserVerificationCodeList } from "./userVerificationCode/UserVerificationCodeList";
+import { UserVerificationCodeCreate } from "./userVerificationCode/UserVerificationCodeCreate";
+import { UserVerificationCodeEdit } from "./userVerificationCode/UserVerificationCodeEdit";
+import { UserVerificationCodeShow } from "./userVerificationCode/UserVerificationCodeShow";
+import { OrganizationsWorkspaceList } from "./organizationsWorkspace/OrganizationsWorkspaceList";
+import { OrganizationsWorkspaceCreate } from "./organizationsWorkspace/OrganizationsWorkspaceCreate";
+import { OrganizationsWorkspaceEdit } from "./organizationsWorkspace/OrganizationsWorkspaceEdit";
+import { OrganizationsWorkspaceShow } from "./organizationsWorkspace/OrganizationsWorkspaceShow";
+import { UsersWorkspaceList } from "./usersWorkspace/UsersWorkspaceList";
+import { UsersWorkspaceCreate } from "./usersWorkspace/UsersWorkspaceCreate";
+import { UsersWorkspaceEdit } from "./usersWorkspace/UsersWorkspaceEdit";
+import { UsersWorkspaceShow } from "./usersWorkspace/UsersWorkspaceShow";
+import { QlikWorkspaceList } from "./qlikWorkspace/QlikWorkspaceList";
+import { QlikWorkspaceCreate } from "./qlikWorkspace/QlikWorkspaceCreate";
+import { QlikWorkspaceEdit } from "./qlikWorkspace/QlikWorkspaceEdit";
+import { QlikWorkspaceShow } from "./qlikWorkspace/QlikWorkspaceShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -74,6 +94,41 @@ const App = (): React.ReactElement => {
           edit={QlikIntegrationEdit}
           create={QlikIntegrationCreate}
           show={QlikIntegrationShow}
+        />
+        <Resource
+          name="UserConfig"
+          list={UserConfigList}
+          edit={UserConfigEdit}
+          create={UserConfigCreate}
+          show={UserConfigShow}
+        />
+        <Resource
+          name="UserVerificationCode"
+          list={UserVerificationCodeList}
+          edit={UserVerificationCodeEdit}
+          create={UserVerificationCodeCreate}
+          show={UserVerificationCodeShow}
+        />
+        <Resource
+          name="OrganizationsWorkspace"
+          list={OrganizationsWorkspaceList}
+          edit={OrganizationsWorkspaceEdit}
+          create={OrganizationsWorkspaceCreate}
+          show={OrganizationsWorkspaceShow}
+        />
+        <Resource
+          name="UsersWorkspace"
+          list={UsersWorkspaceList}
+          edit={UsersWorkspaceEdit}
+          create={UsersWorkspaceCreate}
+          show={UsersWorkspaceShow}
+        />
+        <Resource
+          name="QlikWorkspace"
+          list={QlikWorkspaceList}
+          edit={QlikWorkspaceEdit}
+          create={QlikWorkspaceCreate}
+          show={QlikWorkspaceShow}
         />
       </Admin>
     </div>

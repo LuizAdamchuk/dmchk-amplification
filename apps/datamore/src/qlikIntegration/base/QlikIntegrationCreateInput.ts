@@ -11,7 +11,14 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsBoolean } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
+import { QlikWorkspaceCreateNestedManyWithoutQlikIntegrationsInput } from "./QlikWorkspaceCreateNestedManyWithoutQlikIntegrationsInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class QlikIntegrationCreateInput {
@@ -88,6 +95,18 @@ class QlikIntegrationCreateInput {
     nullable: true,
   })
   qlikWebIntegrationId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => QlikWorkspaceCreateNestedManyWithoutQlikIntegrationsInput,
+  })
+  @ValidateNested()
+  @Type(() => QlikWorkspaceCreateNestedManyWithoutQlikIntegrationsInput)
+  @IsOptional()
+  @Field(() => QlikWorkspaceCreateNestedManyWithoutQlikIntegrationsInput, {
+    nullable: true,
+  })
+  qlikWorkspaces?: QlikWorkspaceCreateNestedManyWithoutQlikIntegrationsInput;
 }
 
 export { QlikIntegrationCreateInput as QlikIntegrationCreateInput };

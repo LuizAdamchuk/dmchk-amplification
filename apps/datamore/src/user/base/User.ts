@@ -11,11 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsOptional, IsBoolean } from "class-validator";
+import {
+  IsDate,
+  IsString,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { UserConfig } from "../../userConfig/base/UserConfig";
+import { UsersWorkspace } from "../../usersWorkspace/base/UsersWorkspace";
+import { UserVerificationCode } from "../../userVerificationCode/base/UserVerificationCode";
 
 @ObjectType()
 class User {
@@ -95,12 +104,39 @@ class User {
   updatedAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: () => [UserConfig],
+  })
+  @ValidateNested()
+  @Type(() => UserConfig)
+  @IsOptional()
+  userConfigs?: Array<UserConfig>;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   username!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [UsersWorkspace],
+  })
+  @ValidateNested()
+  @Type(() => UsersWorkspace)
+  @IsOptional()
+  usersWorkspaces?: Array<UsersWorkspace>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [UserVerificationCode],
+  })
+  @ValidateNested()
+  @Type(() => UserVerificationCode)
+  @IsOptional()
+  userVerificationCodes?: Array<UserVerificationCode>;
 }
 
 export { User as User };

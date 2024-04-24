@@ -8,8 +8,12 @@ import {
   PasswordInput,
   SelectArrayInput,
   BooleanInput,
+  ReferenceArrayInput,
 } from "react-admin";
 
+import { UserConfigTitle } from "../userConfig/UserConfigTitle";
+import { UsersWorkspaceTitle } from "../usersWorkspace/UsersWorkspaceTitle";
+import { UserVerificationCodeTitle } from "../userVerificationCode/UserVerificationCodeTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserCreate = (props: CreateProps): React.ReactElement => {
@@ -27,7 +31,31 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           optionValue="value"
         />
         <BooleanInput label="Status" source="status" />
+        <ReferenceArrayInput
+          source="userConfigs"
+          reference="UserConfig"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={UserConfigTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Username" source="username" />
+        <ReferenceArrayInput
+          source="usersWorkspaces"
+          reference="UsersWorkspace"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={UsersWorkspaceTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="userVerificationCodes"
+          reference="UserVerificationCode"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={UserVerificationCodeTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Create>
   );

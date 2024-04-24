@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   QlikIntegration as PrismaQlikIntegration,
+  QlikWorkspace as PrismaQlikWorkspace,
 } from "@prisma/client";
 
 export class QlikIntegrationServiceBase {
@@ -50,5 +52,16 @@ export class QlikIntegrationServiceBase {
     args: Prisma.SelectSubset<T, Prisma.QlikIntegrationDeleteArgs>
   ): Promise<PrismaQlikIntegration> {
     return this.prisma.qlikIntegration.delete(args);
+  }
+
+  async findQlikWorkspaces(
+    parentId: string,
+    args: Prisma.QlikWorkspaceFindManyArgs
+  ): Promise<PrismaQlikWorkspace[]> {
+    return this.prisma.qlikIntegration
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .qlikWorkspaces(args);
   }
 }

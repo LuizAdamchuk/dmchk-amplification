@@ -26,6 +26,12 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
+import { UserConfigFindManyArgs } from "../../userConfig/base/UserConfigFindManyArgs";
+import { UserConfig } from "../../userConfig/base/UserConfig";
+import { UsersWorkspaceFindManyArgs } from "../../usersWorkspace/base/UsersWorkspaceFindManyArgs";
+import { UsersWorkspace } from "../../usersWorkspace/base/UsersWorkspace";
+import { UserVerificationCodeFindManyArgs } from "../../userVerificationCode/base/UserVerificationCodeFindManyArgs";
+import { UserVerificationCode } from "../../userVerificationCode/base/UserVerificationCode";
 import { UserService } from "../user.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
@@ -130,5 +136,70 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [UserConfig], { name: "userConfigs" })
+  @nestAccessControl.UseRoles({
+    resource: "UserConfig",
+    action: "read",
+    possession: "any",
+  })
+  async findUserConfigs(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: UserConfigFindManyArgs
+  ): Promise<UserConfig[]> {
+    const results = await this.service.findUserConfigs(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [UsersWorkspace], { name: "usersWorkspaces" })
+  @nestAccessControl.UseRoles({
+    resource: "UsersWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findUsersWorkspaces(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: UsersWorkspaceFindManyArgs
+  ): Promise<UsersWorkspace[]> {
+    const results = await this.service.findUsersWorkspaces(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [UserVerificationCode], {
+    name: "userVerificationCodes",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "UserVerificationCode",
+    action: "read",
+    possession: "any",
+  })
+  async findUserVerificationCodes(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: UserVerificationCodeFindManyArgs
+  ): Promise<UserVerificationCode[]> {
+    const results = await this.service.findUserVerificationCodes(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

@@ -1,3 +1,5 @@
+import { QlikWorkspaceUpdateManyWithoutQlikIntegrationsInput } from "./QlikWorkspaceUpdateManyWithoutQlikIntegrationsInput";
+
 export type QlikIntegrationUpdateInput = {
   alias?: string | null;
   domain?: string;
@@ -6,4 +8,5 @@ export type QlikIntegrationUpdateInput = {
   qlikId?: string | null;
   qlikTheme?: string | null;
   qlikWebIntegrationId?: string | null;
+  qlikWorkspaces?: QlikWorkspaceUpdateManyWithoutQlikIntegrationsInput;
 };

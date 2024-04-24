@@ -3,6 +3,11 @@ import { UserModule } from "./user/user.module";
 import { OrganizationModule } from "./organization/organization.module";
 import { WorkspaceModule } from "./workspace/workspace.module";
 import { QlikIntegrationModule } from "./qlikIntegration/qlikIntegration.module";
+import { UserConfigModule } from "./userConfig/userConfig.module";
+import { UserVerificationCodeModule } from "./userVerificationCode/userVerificationCode.module";
+import { OrganizationsWorkspaceModule } from "./organizationsWorkspace/organizationsWorkspace.module";
+import { UsersWorkspaceModule } from "./usersWorkspace/usersWorkspace.module";
+import { QlikWorkspaceModule } from "./qlikWorkspace/qlikWorkspace.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -24,6 +29,11 @@ import { AuthModule } from "./auth/auth.module";
     OrganizationModule,
     WorkspaceModule,
     QlikIntegrationModule,
+    UserConfigModule,
+    UserVerificationCodeModule,
+    OrganizationsWorkspaceModule,
+    UsersWorkspaceModule,
+    QlikWorkspaceModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

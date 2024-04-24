@@ -13,8 +13,11 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { UserConfigListRelationFilter } from "../../userConfig/base/UserConfigListRelationFilter";
+import { UsersWorkspaceListRelationFilter } from "../../usersWorkspace/base/UsersWorkspaceListRelationFilter";
+import { UserVerificationCodeListRelationFilter } from "../../userVerificationCode/base/UserVerificationCodeListRelationFilter";
 
 @InputType()
 class UserWhereInput {
@@ -64,6 +67,18 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => UserConfigListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => UserConfigListRelationFilter)
+  @IsOptional()
+  @Field(() => UserConfigListRelationFilter, {
+    nullable: true,
+  })
+  userConfigs?: UserConfigListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -72,6 +87,30 @@ class UserWhereInput {
     nullable: true,
   })
   username?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UsersWorkspaceListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => UsersWorkspaceListRelationFilter)
+  @IsOptional()
+  @Field(() => UsersWorkspaceListRelationFilter, {
+    nullable: true,
+  })
+  usersWorkspaces?: UsersWorkspaceListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserVerificationCodeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => UserVerificationCodeListRelationFilter)
+  @IsOptional()
+  @Field(() => UserVerificationCodeListRelationFilter, {
+    nullable: true,
+  })
+  userVerificationCodes?: UserVerificationCodeListRelationFilter;
 }
 
 export { UserWhereInput as UserWhereInput };

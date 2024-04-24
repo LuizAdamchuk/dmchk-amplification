@@ -10,7 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Organization as PrismaOrganization } from "@prisma/client";
+
+import {
+  Prisma,
+  Organization as PrismaOrganization,
+  OrganizationsWorkspace as PrismaOrganizationsWorkspace,
+} from "@prisma/client";
 
 export class OrganizationServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -47,5 +52,16 @@ export class OrganizationServiceBase {
     args: Prisma.SelectSubset<T, Prisma.OrganizationDeleteArgs>
   ): Promise<PrismaOrganization> {
     return this.prisma.organization.delete(args);
+  }
+
+  async findOrganizationsWorkspaces(
+    parentId: string,
+    args: Prisma.OrganizationsWorkspaceFindManyArgs
+  ): Promise<PrismaOrganizationsWorkspace[]> {
+    return this.prisma.organization
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .organizationsWorkspaces(args);
   }
 }

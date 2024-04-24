@@ -11,8 +11,11 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { OrganizationsWorkspace } from "../../organizationsWorkspace/base/OrganizationsWorkspace";
+import { QlikWorkspace } from "../../qlikWorkspace/base/QlikWorkspace";
+import { UsersWorkspace } from "../../usersWorkspace/base/UsersWorkspace";
 
 @ObjectType()
 class Workspace {
@@ -41,6 +44,24 @@ class Workspace {
   name!: string;
 
   @ApiProperty({
+    required: false,
+    type: () => [OrganizationsWorkspace],
+  })
+  @ValidateNested()
+  @Type(() => OrganizationsWorkspace)
+  @IsOptional()
+  organizationsWorkspaces?: Array<OrganizationsWorkspace>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [QlikWorkspace],
+  })
+  @ValidateNested()
+  @Type(() => QlikWorkspace)
+  @IsOptional()
+  qlikWorkspaces?: Array<QlikWorkspace>;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -55,6 +76,15 @@ class Workspace {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [UsersWorkspace],
+  })
+  @ValidateNested()
+  @Type(() => UsersWorkspace)
+  @IsOptional()
+  usersWorkspaces?: Array<UsersWorkspace>;
 }
 
 export { Workspace as Workspace };

@@ -1,3 +1,5 @@
+import { QlikWorkspace } from "../qlikWorkspace/QlikWorkspace";
+
 export type QlikIntegration = {
   alias: string | null;
   createdAt: Date;
@@ -8,5 +10,6 @@ export type QlikIntegration = {
   qlikId: string | null;
   qlikTheme: string | null;
   qlikWebIntegrationId: string | null;
+  qlikWorkspaces?: Array<QlikWorkspace>;
   updatedAt: Date;
 };

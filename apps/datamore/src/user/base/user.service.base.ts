@@ -10,7 +10,15 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, User as PrismaUser } from "@prisma/client";
+
+import {
+  Prisma,
+  User as PrismaUser,
+  UserConfig as PrismaUserConfig,
+  UsersWorkspace as PrismaUsersWorkspace,
+  UserVerificationCode as PrismaUserVerificationCode,
+} from "@prisma/client";
+
 import { PasswordService } from "../../auth/password.service";
 import { transformStringFieldUpdateInput } from "../../prisma.util";
 
@@ -68,5 +76,38 @@ export class UserServiceBase {
     args: Prisma.SelectSubset<T, Prisma.UserDeleteArgs>
   ): Promise<PrismaUser> {
     return this.prisma.user.delete(args);
+  }
+
+  async findUserConfigs(
+    parentId: string,
+    args: Prisma.UserConfigFindManyArgs
+  ): Promise<PrismaUserConfig[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .userConfigs(args);
+  }
+
+  async findUsersWorkspaces(
+    parentId: string,
+    args: Prisma.UsersWorkspaceFindManyArgs
+  ): Promise<PrismaUsersWorkspace[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .usersWorkspaces(args);
+  }
+
+  async findUserVerificationCodes(
+    parentId: string,
+    args: Prisma.UserVerificationCodeFindManyArgs
+  ): Promise<PrismaUserVerificationCode[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .userVerificationCodes(args);
   }
 }

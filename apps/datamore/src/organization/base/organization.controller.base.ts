@@ -26,6 +26,9 @@ import { Organization } from "./Organization";
 import { OrganizationFindManyArgs } from "./OrganizationFindManyArgs";
 import { OrganizationWhereUniqueInput } from "./OrganizationWhereUniqueInput";
 import { OrganizationUpdateInput } from "./OrganizationUpdateInput";
+import { OrganizationsWorkspaceFindManyArgs } from "../../organizationsWorkspace/base/OrganizationsWorkspaceFindManyArgs";
+import { OrganizationsWorkspace } from "../../organizationsWorkspace/base/OrganizationsWorkspace";
+import { OrganizationsWorkspaceWhereUniqueInput } from "../../organizationsWorkspace/base/OrganizationsWorkspaceWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -200,5 +203,103 @@ export class OrganizationControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/organizationsWorkspaces")
+  @ApiNestedQuery(OrganizationsWorkspaceFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "OrganizationsWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findOrganizationsWorkspaces(
+    @common.Req() request: Request,
+    @common.Param() params: OrganizationWhereUniqueInput
+  ): Promise<OrganizationsWorkspace[]> {
+    const query = plainToClass(
+      OrganizationsWorkspaceFindManyArgs,
+      request.query
+    );
+    const results = await this.service.findOrganizationsWorkspaces(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/organizationsWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "update",
+    possession: "any",
+  })
+  async connectOrganizationsWorkspaces(
+    @common.Param() params: OrganizationWhereUniqueInput,
+    @common.Body() body: OrganizationsWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      organizationsWorkspaces: {
+        connect: body,
+      },
+    };
+    await this.service.updateOrganization({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/organizationsWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "update",
+    possession: "any",
+  })
+  async updateOrganizationsWorkspaces(
+    @common.Param() params: OrganizationWhereUniqueInput,
+    @common.Body() body: OrganizationsWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      organizationsWorkspaces: {
+        set: body,
+      },
+    };
+    await this.service.updateOrganization({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/organizationsWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectOrganizationsWorkspaces(
+    @common.Param() params: OrganizationWhereUniqueInput,
+    @common.Body() body: OrganizationsWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      organizationsWorkspaces: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateOrganization({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

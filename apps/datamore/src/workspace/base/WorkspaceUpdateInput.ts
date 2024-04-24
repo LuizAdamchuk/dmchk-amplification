@@ -11,7 +11,11 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional } from "class-validator";
+import { IsString, IsOptional, ValidateNested } from "class-validator";
+import { OrganizationsWorkspaceUpdateManyWithoutWorkspacesInput } from "./OrganizationsWorkspaceUpdateManyWithoutWorkspacesInput";
+import { Type } from "class-transformer";
+import { QlikWorkspaceUpdateManyWithoutWorkspacesInput } from "./QlikWorkspaceUpdateManyWithoutWorkspacesInput";
+import { UsersWorkspaceUpdateManyWithoutWorkspacesInput } from "./UsersWorkspaceUpdateManyWithoutWorkspacesInput";
 
 @InputType()
 class WorkspaceUpdateInput {
@@ -28,6 +32,30 @@ class WorkspaceUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => OrganizationsWorkspaceUpdateManyWithoutWorkspacesInput,
+  })
+  @ValidateNested()
+  @Type(() => OrganizationsWorkspaceUpdateManyWithoutWorkspacesInput)
+  @IsOptional()
+  @Field(() => OrganizationsWorkspaceUpdateManyWithoutWorkspacesInput, {
+    nullable: true,
+  })
+  organizationsWorkspaces?: OrganizationsWorkspaceUpdateManyWithoutWorkspacesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => QlikWorkspaceUpdateManyWithoutWorkspacesInput,
+  })
+  @ValidateNested()
+  @Type(() => QlikWorkspaceUpdateManyWithoutWorkspacesInput)
+  @IsOptional()
+  @Field(() => QlikWorkspaceUpdateManyWithoutWorkspacesInput, {
+    nullable: true,
+  })
+  qlikWorkspaces?: QlikWorkspaceUpdateManyWithoutWorkspacesInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -36,6 +64,18 @@ class WorkspaceUpdateInput {
     nullable: true,
   })
   slug?: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => UsersWorkspaceUpdateManyWithoutWorkspacesInput,
+  })
+  @ValidateNested()
+  @Type(() => UsersWorkspaceUpdateManyWithoutWorkspacesInput)
+  @IsOptional()
+  @Field(() => UsersWorkspaceUpdateManyWithoutWorkspacesInput, {
+    nullable: true,
+  })
+  usersWorkspaces?: UsersWorkspaceUpdateManyWithoutWorkspacesInput;
 }
 
 export { WorkspaceUpdateInput as WorkspaceUpdateInput };

@@ -26,6 +26,12 @@ import { WorkspaceFindUniqueArgs } from "./WorkspaceFindUniqueArgs";
 import { CreateWorkspaceArgs } from "./CreateWorkspaceArgs";
 import { UpdateWorkspaceArgs } from "./UpdateWorkspaceArgs";
 import { DeleteWorkspaceArgs } from "./DeleteWorkspaceArgs";
+import { OrganizationsWorkspaceFindManyArgs } from "../../organizationsWorkspace/base/OrganizationsWorkspaceFindManyArgs";
+import { OrganizationsWorkspace } from "../../organizationsWorkspace/base/OrganizationsWorkspace";
+import { QlikWorkspaceFindManyArgs } from "../../qlikWorkspace/base/QlikWorkspaceFindManyArgs";
+import { QlikWorkspace } from "../../qlikWorkspace/base/QlikWorkspace";
+import { UsersWorkspaceFindManyArgs } from "../../usersWorkspace/base/UsersWorkspaceFindManyArgs";
+import { UsersWorkspace } from "../../usersWorkspace/base/UsersWorkspace";
 import { WorkspaceService } from "../workspace.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Workspace)
@@ -140,5 +146,70 @@ export class WorkspaceResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [OrganizationsWorkspace], {
+    name: "organizationsWorkspaces",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "OrganizationsWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findOrganizationsWorkspaces(
+    @graphql.Parent() parent: Workspace,
+    @graphql.Args() args: OrganizationsWorkspaceFindManyArgs
+  ): Promise<OrganizationsWorkspace[]> {
+    const results = await this.service.findOrganizationsWorkspaces(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [QlikWorkspace], { name: "qlikWorkspaces" })
+  @nestAccessControl.UseRoles({
+    resource: "QlikWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findQlikWorkspaces(
+    @graphql.Parent() parent: Workspace,
+    @graphql.Args() args: QlikWorkspaceFindManyArgs
+  ): Promise<QlikWorkspace[]> {
+    const results = await this.service.findQlikWorkspaces(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [UsersWorkspace], { name: "usersWorkspaces" })
+  @nestAccessControl.UseRoles({
+    resource: "UsersWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findUsersWorkspaces(
+    @graphql.Parent() parent: Workspace,
+    @graphql.Args() args: UsersWorkspaceFindManyArgs
+  ): Promise<UsersWorkspace[]> {
+    const results = await this.service.findUsersWorkspaces(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }
