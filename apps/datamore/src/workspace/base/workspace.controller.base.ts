@@ -26,6 +26,15 @@ import { Workspace } from "./Workspace";
 import { WorkspaceFindManyArgs } from "./WorkspaceFindManyArgs";
 import { WorkspaceWhereUniqueInput } from "./WorkspaceWhereUniqueInput";
 import { WorkspaceUpdateInput } from "./WorkspaceUpdateInput";
+import { OrganizationsWorkspaceFindManyArgs } from "../../organizationsWorkspace/base/OrganizationsWorkspaceFindManyArgs";
+import { OrganizationsWorkspace } from "../../organizationsWorkspace/base/OrganizationsWorkspace";
+import { OrganizationsWorkspaceWhereUniqueInput } from "../../organizationsWorkspace/base/OrganizationsWorkspaceWhereUniqueInput";
+import { QlikWorkspaceFindManyArgs } from "../../qlikWorkspace/base/QlikWorkspaceFindManyArgs";
+import { QlikWorkspace } from "../../qlikWorkspace/base/QlikWorkspace";
+import { QlikWorkspaceWhereUniqueInput } from "../../qlikWorkspace/base/QlikWorkspaceWhereUniqueInput";
+import { UsersWorkspaceFindManyArgs } from "../../usersWorkspace/base/UsersWorkspaceFindManyArgs";
+import { UsersWorkspace } from "../../usersWorkspace/base/UsersWorkspace";
+import { UsersWorkspaceWhereUniqueInput } from "../../usersWorkspace/base/UsersWorkspaceWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -190,5 +199,312 @@ export class WorkspaceControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/organizationsWorkspaces")
+  @ApiNestedQuery(OrganizationsWorkspaceFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "OrganizationsWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findOrganizationsWorkspaces(
+    @common.Req() request: Request,
+    @common.Param() params: WorkspaceWhereUniqueInput
+  ): Promise<OrganizationsWorkspace[]> {
+    const query = plainToClass(
+      OrganizationsWorkspaceFindManyArgs,
+      request.query
+    );
+    const results = await this.service.findOrganizationsWorkspaces(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/organizationsWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async connectOrganizationsWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: OrganizationsWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      organizationsWorkspaces: {
+        connect: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/organizationsWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async updateOrganizationsWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: OrganizationsWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      organizationsWorkspaces: {
+        set: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/organizationsWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectOrganizationsWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: OrganizationsWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      organizationsWorkspaces: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/qlikWorkspaces")
+  @ApiNestedQuery(QlikWorkspaceFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "QlikWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findQlikWorkspaces(
+    @common.Req() request: Request,
+    @common.Param() params: WorkspaceWhereUniqueInput
+  ): Promise<QlikWorkspace[]> {
+    const query = plainToClass(QlikWorkspaceFindManyArgs, request.query);
+    const results = await this.service.findQlikWorkspaces(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+
+        qlikintegration: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/qlikWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async connectQlikWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: QlikWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      qlikWorkspaces: {
+        connect: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/qlikWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async updateQlikWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: QlikWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      qlikWorkspaces: {
+        set: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/qlikWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectQlikWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: QlikWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      qlikWorkspaces: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/usersWorkspaces")
+  @ApiNestedQuery(UsersWorkspaceFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "UsersWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findUsersWorkspaces(
+    @common.Req() request: Request,
+    @common.Param() params: WorkspaceWhereUniqueInput
+  ): Promise<UsersWorkspace[]> {
+    const query = plainToClass(UsersWorkspaceFindManyArgs, request.query);
+    const results = await this.service.findUsersWorkspaces(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+
+        workspace: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/usersWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async connectUsersWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: UsersWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersWorkspaces: {
+        connect: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/usersWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async updateUsersWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: UsersWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersWorkspaces: {
+        set: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/usersWorkspaces")
+  @nestAccessControl.UseRoles({
+    resource: "Workspace",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectUsersWorkspaces(
+    @common.Param() params: WorkspaceWhereUniqueInput,
+    @common.Body() body: UsersWorkspaceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      usersWorkspaces: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

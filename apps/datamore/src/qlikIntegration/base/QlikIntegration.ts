@@ -11,8 +11,15 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate, IsBoolean } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsDate,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { QlikWorkspace } from "../../qlikWorkspace/base/QlikWorkspace";
 
 @ObjectType()
 class QlikIntegration {
@@ -105,6 +112,15 @@ class QlikIntegration {
     nullable: true,
   })
   qlikWebIntegrationId!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [QlikWorkspace],
+  })
+  @ValidateNested()
+  @Type(() => QlikWorkspace)
+  @IsOptional()
+  qlikWorkspaces?: Array<QlikWorkspace>;
 
   @ApiProperty({
     required: true,

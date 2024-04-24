@@ -11,10 +11,19 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsBoolean } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { UserConfigCreateNestedManyWithoutUsersInput } from "./UserConfigCreateNestedManyWithoutUsersInput";
+import { Type } from "class-transformer";
+import { UsersWorkspaceCreateNestedManyWithoutUsersInput } from "./UsersWorkspaceCreateNestedManyWithoutUsersInput";
+import { UserVerificationCodeCreateNestedManyWithoutUsersInput } from "./UserVerificationCodeCreateNestedManyWithoutUsersInput";
 
 @InputType()
 class UserCreateInput {
@@ -78,12 +87,48 @@ class UserCreateInput {
   status?: boolean | null;
 
   @ApiProperty({
+    required: false,
+    type: () => UserConfigCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UserConfigCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UserConfigCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  userConfigs?: UserConfigCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   username!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => UsersWorkspaceCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UsersWorkspaceCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UsersWorkspaceCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  usersWorkspaces?: UsersWorkspaceCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserVerificationCodeCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UserVerificationCodeCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UserVerificationCodeCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  userVerificationCodes?: UserVerificationCodeCreateNestedManyWithoutUsersInput;
 }
 
 export { UserCreateInput as UserCreateInput };

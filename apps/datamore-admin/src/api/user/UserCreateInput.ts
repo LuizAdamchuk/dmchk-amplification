@@ -1,4 +1,7 @@
 import { InputJsonValue } from "../../types";
+import { UserConfigCreateNestedManyWithoutUsersInput } from "./UserConfigCreateNestedManyWithoutUsersInput";
+import { UsersWorkspaceCreateNestedManyWithoutUsersInput } from "./UsersWorkspaceCreateNestedManyWithoutUsersInput";
+import { UserVerificationCodeCreateNestedManyWithoutUsersInput } from "./UserVerificationCodeCreateNestedManyWithoutUsersInput";
 
 export type UserCreateInput = {
   email?: string | null;
@@ -7,5 +10,8 @@ export type UserCreateInput = {
   password: string;
   roles: InputJsonValue;
   status?: boolean | null;
+  userConfigs?: UserConfigCreateNestedManyWithoutUsersInput;
   username: string;
+  usersWorkspaces?: UsersWorkspaceCreateNestedManyWithoutUsersInput;
+  userVerificationCodes?: UserVerificationCodeCreateNestedManyWithoutUsersInput;
 };

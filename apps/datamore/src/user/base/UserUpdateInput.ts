@@ -11,10 +11,19 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsBoolean } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  ValidateNested,
+} from "class-validator";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { UserConfigUpdateManyWithoutUsersInput } from "./UserConfigUpdateManyWithoutUsersInput";
+import { Type } from "class-transformer";
+import { UsersWorkspaceUpdateManyWithoutUsersInput } from "./UsersWorkspaceUpdateManyWithoutUsersInput";
+import { UserVerificationCodeUpdateManyWithoutUsersInput } from "./UserVerificationCodeUpdateManyWithoutUsersInput";
 
 @InputType()
 class UserUpdateInput {
@@ -85,6 +94,18 @@ class UserUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => UserConfigUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UserConfigUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UserConfigUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  userConfigs?: UserConfigUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -93,6 +114,30 @@ class UserUpdateInput {
     nullable: true,
   })
   username?: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => UsersWorkspaceUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UsersWorkspaceUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UsersWorkspaceUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  usersWorkspaces?: UsersWorkspaceUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserVerificationCodeUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UserVerificationCodeUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UserVerificationCodeUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  userVerificationCodes?: UserVerificationCodeUpdateManyWithoutUsersInput;
 }
 
 export { UserUpdateInput as UserUpdateInput };

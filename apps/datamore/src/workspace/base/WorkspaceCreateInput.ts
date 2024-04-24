@@ -11,7 +11,11 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsString, ValidateNested, IsOptional } from "class-validator";
+import { OrganizationsWorkspaceCreateNestedManyWithoutWorkspacesInput } from "./OrganizationsWorkspaceCreateNestedManyWithoutWorkspacesInput";
+import { Type } from "class-transformer";
+import { QlikWorkspaceCreateNestedManyWithoutWorkspacesInput } from "./QlikWorkspaceCreateNestedManyWithoutWorkspacesInput";
+import { UsersWorkspaceCreateNestedManyWithoutWorkspacesInput } from "./UsersWorkspaceCreateNestedManyWithoutWorkspacesInput";
 
 @InputType()
 class WorkspaceCreateInput {
@@ -24,12 +28,48 @@ class WorkspaceCreateInput {
   name!: string;
 
   @ApiProperty({
+    required: false,
+    type: () => OrganizationsWorkspaceCreateNestedManyWithoutWorkspacesInput,
+  })
+  @ValidateNested()
+  @Type(() => OrganizationsWorkspaceCreateNestedManyWithoutWorkspacesInput)
+  @IsOptional()
+  @Field(() => OrganizationsWorkspaceCreateNestedManyWithoutWorkspacesInput, {
+    nullable: true,
+  })
+  organizationsWorkspaces?: OrganizationsWorkspaceCreateNestedManyWithoutWorkspacesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => QlikWorkspaceCreateNestedManyWithoutWorkspacesInput,
+  })
+  @ValidateNested()
+  @Type(() => QlikWorkspaceCreateNestedManyWithoutWorkspacesInput)
+  @IsOptional()
+  @Field(() => QlikWorkspaceCreateNestedManyWithoutWorkspacesInput, {
+    nullable: true,
+  })
+  qlikWorkspaces?: QlikWorkspaceCreateNestedManyWithoutWorkspacesInput;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   slug!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => UsersWorkspaceCreateNestedManyWithoutWorkspacesInput,
+  })
+  @ValidateNested()
+  @Type(() => UsersWorkspaceCreateNestedManyWithoutWorkspacesInput)
+  @IsOptional()
+  @Field(() => UsersWorkspaceCreateNestedManyWithoutWorkspacesInput, {
+    nullable: true,
+  })
+  usersWorkspaces?: UsersWorkspaceCreateNestedManyWithoutWorkspacesInput;
 }
 
 export { WorkspaceCreateInput as WorkspaceCreateInput };

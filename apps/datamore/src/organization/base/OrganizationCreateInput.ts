@@ -11,7 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional } from "class-validator";
+import { IsString, IsOptional, ValidateNested } from "class-validator";
+import { OrganizationsWorkspaceCreateNestedManyWithoutOrganizationsInput } from "./OrganizationsWorkspaceCreateNestedManyWithoutOrganizationsInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class OrganizationCreateInput {
@@ -33,6 +35,21 @@ class OrganizationCreateInput {
   @IsString()
   @Field(() => String)
   name!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrganizationsWorkspaceCreateNestedManyWithoutOrganizationsInput,
+  })
+  @ValidateNested()
+  @Type(() => OrganizationsWorkspaceCreateNestedManyWithoutOrganizationsInput)
+  @IsOptional()
+  @Field(
+    () => OrganizationsWorkspaceCreateNestedManyWithoutOrganizationsInput,
+    {
+      nullable: true,
+    }
+  )
+  organizationsWorkspaces?: OrganizationsWorkspaceCreateNestedManyWithoutOrganizationsInput;
 
   @ApiProperty({
     required: false,

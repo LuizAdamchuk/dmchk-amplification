@@ -26,6 +26,8 @@ import { QlikIntegrationFindUniqueArgs } from "./QlikIntegrationFindUniqueArgs";
 import { CreateQlikIntegrationArgs } from "./CreateQlikIntegrationArgs";
 import { UpdateQlikIntegrationArgs } from "./UpdateQlikIntegrationArgs";
 import { DeleteQlikIntegrationArgs } from "./DeleteQlikIntegrationArgs";
+import { QlikWorkspaceFindManyArgs } from "../../qlikWorkspace/base/QlikWorkspaceFindManyArgs";
+import { QlikWorkspace } from "../../qlikWorkspace/base/QlikWorkspace";
 import { QlikIntegrationService } from "../qlikIntegration.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => QlikIntegration)
@@ -140,5 +142,25 @@ export class QlikIntegrationResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [QlikWorkspace], { name: "qlikWorkspaces" })
+  @nestAccessControl.UseRoles({
+    resource: "QlikWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findQlikWorkspaces(
+    @graphql.Parent() parent: QlikIntegration,
+    @graphql.Args() args: QlikWorkspaceFindManyArgs
+  ): Promise<QlikWorkspace[]> {
+    const results = await this.service.findQlikWorkspaces(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

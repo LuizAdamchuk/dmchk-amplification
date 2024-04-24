@@ -1,11 +1,16 @@
 import * as React from "react";
+
 import {
   Edit,
   SimpleForm,
   EditProps,
   TextInput,
   BooleanInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
 } from "react-admin";
+
+import { QlikWorkspaceTitle } from "../qlikWorkspace/QlikWorkspaceTitle";
 
 export const QlikIntegrationEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -18,6 +23,14 @@ export const QlikIntegrationEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="QlikId" source="qlikId" />
         <TextInput label="QlikTheme" source="qlikTheme" />
         <TextInput label="QlikWebIntegrationId" source="qlikWebIntegrationId" />
+        <ReferenceArrayInput
+          source="qlikWorkspaces"
+          reference="QlikWorkspace"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={QlikWorkspaceTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Edit>
   );

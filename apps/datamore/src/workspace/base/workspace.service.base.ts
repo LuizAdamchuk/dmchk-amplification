@@ -10,7 +10,14 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Workspace as PrismaWorkspace } from "@prisma/client";
+
+import {
+  Prisma,
+  Workspace as PrismaWorkspace,
+  OrganizationsWorkspace as PrismaOrganizationsWorkspace,
+  QlikWorkspace as PrismaQlikWorkspace,
+  UsersWorkspace as PrismaUsersWorkspace,
+} from "@prisma/client";
 
 export class WorkspaceServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +52,38 @@ export class WorkspaceServiceBase {
     args: Prisma.SelectSubset<T, Prisma.WorkspaceDeleteArgs>
   ): Promise<PrismaWorkspace> {
     return this.prisma.workspace.delete(args);
+  }
+
+  async findOrganizationsWorkspaces(
+    parentId: string,
+    args: Prisma.OrganizationsWorkspaceFindManyArgs
+  ): Promise<PrismaOrganizationsWorkspace[]> {
+    return this.prisma.workspace
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .organizationsWorkspaces(args);
+  }
+
+  async findQlikWorkspaces(
+    parentId: string,
+    args: Prisma.QlikWorkspaceFindManyArgs
+  ): Promise<PrismaQlikWorkspace[]> {
+    return this.prisma.workspace
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .qlikWorkspaces(args);
+  }
+
+  async findUsersWorkspaces(
+    parentId: string,
+    args: Prisma.UsersWorkspaceFindManyArgs
+  ): Promise<PrismaUsersWorkspace[]> {
+    return this.prisma.workspace
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .usersWorkspaces(args);
   }
 }

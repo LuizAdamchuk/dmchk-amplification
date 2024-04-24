@@ -13,9 +13,10 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { QlikWorkspaceListRelationFilter } from "../../qlikWorkspace/base/QlikWorkspaceListRelationFilter";
 
 @InputType()
 class QlikIntegrationWhereInput {
@@ -106,6 +107,18 @@ class QlikIntegrationWhereInput {
     nullable: true,
   })
   qlikWebIntegrationId?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => QlikWorkspaceListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => QlikWorkspaceListRelationFilter)
+  @IsOptional()
+  @Field(() => QlikWorkspaceListRelationFilter, {
+    nullable: true,
+  })
+  qlikWorkspaces?: QlikWorkspaceListRelationFilter;
 }
 
 export { QlikIntegrationWhereInput as QlikIntegrationWhereInput };

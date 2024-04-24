@@ -26,6 +26,8 @@ import { OrganizationFindUniqueArgs } from "./OrganizationFindUniqueArgs";
 import { CreateOrganizationArgs } from "./CreateOrganizationArgs";
 import { UpdateOrganizationArgs } from "./UpdateOrganizationArgs";
 import { DeleteOrganizationArgs } from "./DeleteOrganizationArgs";
+import { OrganizationsWorkspaceFindManyArgs } from "../../organizationsWorkspace/base/OrganizationsWorkspaceFindManyArgs";
+import { OrganizationsWorkspace } from "../../organizationsWorkspace/base/OrganizationsWorkspace";
 import { OrganizationService } from "../organization.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Organization)
@@ -140,5 +142,30 @@ export class OrganizationResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [OrganizationsWorkspace], {
+    name: "organizationsWorkspaces",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "OrganizationsWorkspace",
+    action: "read",
+    possession: "any",
+  })
+  async findOrganizationsWorkspaces(
+    @graphql.Parent() parent: Organization,
+    @graphql.Args() args: OrganizationsWorkspaceFindManyArgs
+  ): Promise<OrganizationsWorkspace[]> {
+    const results = await this.service.findOrganizationsWorkspaces(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }
