@@ -4,7 +4,7 @@ import { Workspace } from "../workspace/Workspace";
 export type QlikWorkspace = {
   createdAt: Date;
   id: string;
-  qlikintegration?: QlikIntegration | null;
+  qlikintegration?: Array<QlikIntegration>;
   updatedAt: Date;
   workspace?: Array<Workspace>;
 };

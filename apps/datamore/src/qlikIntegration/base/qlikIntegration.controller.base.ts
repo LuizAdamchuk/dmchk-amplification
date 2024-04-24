@@ -240,13 +240,6 @@ export class QlikIntegrationControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        qlikintegration: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });

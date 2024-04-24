@@ -1,15 +1,11 @@
 import * as React from "react";
-
 import {
   Create,
   SimpleForm,
   CreateProps,
-  ReferenceInput,
-  SelectInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
-
 import { QlikIntegrationTitle } from "../qlikIntegration/QlikIntegrationTitle";
 import { WorkspaceTitle } from "../workspace/WorkspaceTitle";
 
@@ -17,13 +13,14 @@ export const QlikWorkspaceCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="qlikintegration.id"
+        <ReferenceArrayInput
+          source="qlikintegration"
           reference="QlikIntegration"
-          label="QlikIntegration"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectInput optionText={QlikIntegrationTitle} />
-        </ReferenceInput>
+          <SelectArrayInput optionText={QlikIntegrationTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="workspace"
           reference="Workspace"

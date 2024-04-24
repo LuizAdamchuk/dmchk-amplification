@@ -100,10 +100,9 @@ model UsersWorkspace {
 }
 
 model QlikWorkspace {
-  createdAt       DateTime         @default(now())
-  id              String           @id @default(cuid())
-  qlikintegration QlikIntegration? @relation(fields: [qlikd], references: [id])
-  qlikd           String?
-  updatedAt       DateTime         @updatedAt
+  createdAt       DateTime          @default(now())
+  id              String            @id @default(cuid())
+  qlikintegration QlikIntegration[]
+  updatedAt       DateTime          @updatedAt
   workspace       Workspace[]
 }

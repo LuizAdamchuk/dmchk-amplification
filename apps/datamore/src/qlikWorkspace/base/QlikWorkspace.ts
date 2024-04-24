@@ -36,12 +36,12 @@ class QlikWorkspace {
 
   @ApiProperty({
     required: false,
-    type: () => QlikIntegration,
+    type: () => [QlikIntegration],
   })
   @ValidateNested()
   @Type(() => QlikIntegration)
   @IsOptional()
-  qlikintegration?: QlikIntegration | null;
+  qlikintegration?: Array<QlikIntegration>;
 
   @ApiProperty({
     required: true,

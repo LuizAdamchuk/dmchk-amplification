@@ -317,13 +317,6 @@ export class WorkspaceControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        qlikintegration: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });

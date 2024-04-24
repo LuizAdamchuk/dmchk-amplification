@@ -14,8 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   QlikWorkspace as PrismaQlikWorkspace,
-  Workspace as PrismaWorkspace,
   QlikIntegration as PrismaQlikIntegration,
+  Workspace as PrismaWorkspace,
 } from "@prisma/client";
 
 export class QlikWorkspaceServiceBase {
@@ -55,6 +55,17 @@ export class QlikWorkspaceServiceBase {
     return this.prisma.qlikWorkspace.delete(args);
   }
 
+  async findQlikintegration(
+    parentId: string,
+    args: Prisma.QlikIntegrationFindManyArgs
+  ): Promise<PrismaQlikIntegration[]> {
+    return this.prisma.qlikWorkspace
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .qlikintegration(args);
+  }
+
   async findWorkspace(
     parentId: string,
     args: Prisma.WorkspaceFindManyArgs
@@ -64,15 +75,5 @@ export class QlikWorkspaceServiceBase {
         where: { id: parentId },
       })
       .workspace(args);
-  }
-
-  async getQlikintegration(
-    parentId: string
-  ): Promise<PrismaQlikIntegration | null> {
-    return this.prisma.qlikWorkspace
-      .findUnique({
-        where: { id: parentId },
-      })
-      .qlikintegration();
   }
 }
