@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { QlikIntegrationWhereUniqueInput } from "../../qlikIntegration/base/QlikIntegrationWhereUniqueInput";
+import { QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput } from "./QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { WorkspaceCreateNestedManyWithoutQlikWorkspacesInput } from "./WorkspaceCreateNestedManyWithoutQlikWorkspacesInput";
@@ -20,15 +20,15 @@ import { WorkspaceCreateNestedManyWithoutQlikWorkspacesInput } from "./Workspace
 class QlikWorkspaceCreateInput {
   @ApiProperty({
     required: false,
-    type: () => QlikIntegrationWhereUniqueInput,
+    type: () => QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput,
   })
   @ValidateNested()
-  @Type(() => QlikIntegrationWhereUniqueInput)
+  @Type(() => QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput)
   @IsOptional()
-  @Field(() => QlikIntegrationWhereUniqueInput, {
+  @Field(() => QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput, {
     nullable: true,
   })
-  qlikintegration?: QlikIntegrationWhereUniqueInput | null;
+  qlikintegration?: QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput;
 
   @ApiProperty({
     required: false,

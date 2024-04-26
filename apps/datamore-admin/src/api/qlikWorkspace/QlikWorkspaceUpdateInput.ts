@@ -1,7 +1,7 @@
-import { QlikIntegrationWhereUniqueInput } from "../qlikIntegration/QlikIntegrationWhereUniqueInput";
+import { QlikIntegrationUpdateManyWithoutQlikWorkspacesInput } from "./QlikIntegrationUpdateManyWithoutQlikWorkspacesInput";
 import { WorkspaceUpdateManyWithoutQlikWorkspacesInput } from "./WorkspaceUpdateManyWithoutQlikWorkspacesInput";
 
 export type QlikWorkspaceUpdateInput = {
-  qlikintegration?: QlikIntegrationWhereUniqueInput | null;
+  qlikintegration?: QlikIntegrationUpdateManyWithoutQlikWorkspacesInput;
   workspace?: WorkspaceUpdateManyWithoutQlikWorkspacesInput;
 };

@@ -1,7 +1,7 @@
-import { QlikIntegrationWhereUniqueInput } from "../qlikIntegration/QlikIntegrationWhereUniqueInput";
+import { QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput } from "./QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput";
 import { WorkspaceCreateNestedManyWithoutQlikWorkspacesInput } from "./WorkspaceCreateNestedManyWithoutQlikWorkspacesInput";
 
 export type QlikWorkspaceCreateInput = {
-  qlikintegration?: QlikIntegrationWhereUniqueInput | null;
+  qlikintegration?: QlikIntegrationCreateNestedManyWithoutQlikWorkspacesInput;
   workspace?: WorkspaceCreateNestedManyWithoutQlikWorkspacesInput;
 };

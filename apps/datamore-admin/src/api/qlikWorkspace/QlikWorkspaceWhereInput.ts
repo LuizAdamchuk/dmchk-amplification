@@ -1,9 +1,9 @@
 import { StringFilter } from "../../util/StringFilter";
-import { QlikIntegrationWhereUniqueInput } from "../qlikIntegration/QlikIntegrationWhereUniqueInput";
+import { QlikIntegrationListRelationFilter } from "../qlikIntegration/QlikIntegrationListRelationFilter";
 import { WorkspaceListRelationFilter } from "../workspace/WorkspaceListRelationFilter";
 
 export type QlikWorkspaceWhereInput = {
   id?: StringFilter;
-  qlikintegration?: QlikIntegrationWhereUniqueInput;
+  qlikintegration?: QlikIntegrationListRelationFilter;
   workspace?: WorkspaceListRelationFilter;
 };

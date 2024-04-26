@@ -26,6 +26,9 @@ import { QlikWorkspace } from "./QlikWorkspace";
 import { QlikWorkspaceFindManyArgs } from "./QlikWorkspaceFindManyArgs";
 import { QlikWorkspaceWhereUniqueInput } from "./QlikWorkspaceWhereUniqueInput";
 import { QlikWorkspaceUpdateInput } from "./QlikWorkspaceUpdateInput";
+import { QlikIntegrationFindManyArgs } from "../../qlikIntegration/base/QlikIntegrationFindManyArgs";
+import { QlikIntegration } from "../../qlikIntegration/base/QlikIntegration";
+import { QlikIntegrationWhereUniqueInput } from "../../qlikIntegration/base/QlikIntegrationWhereUniqueInput";
 import { WorkspaceFindManyArgs } from "../../workspace/base/WorkspaceFindManyArgs";
 import { Workspace } from "../../workspace/base/Workspace";
 import { WorkspaceWhereUniqueInput } from "../../workspace/base/WorkspaceWhereUniqueInput";
@@ -52,25 +55,10 @@ export class QlikWorkspaceControllerBase {
     @common.Body() data: QlikWorkspaceCreateInput
   ): Promise<QlikWorkspace> {
     return await this.service.createQlikWorkspace({
-      data: {
-        ...data,
-
-        qlikintegration: data.qlikintegration
-          ? {
-              connect: data.qlikintegration,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         id: true,
-
-        qlikintegration: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -97,13 +85,6 @@ export class QlikWorkspaceControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        qlikintegration: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -129,13 +110,6 @@ export class QlikWorkspaceControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        qlikintegration: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -166,25 +140,10 @@ export class QlikWorkspaceControllerBase {
     try {
       return await this.service.updateQlikWorkspace({
         where: params,
-        data: {
-          ...data,
-
-          qlikintegration: data.qlikintegration
-            ? {
-                connect: data.qlikintegration,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           id: true,
-
-          qlikintegration: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -218,13 +177,6 @@ export class QlikWorkspaceControllerBase {
         select: {
           createdAt: true,
           id: true,
-
-          qlikintegration: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -236,6 +188,108 @@ export class QlikWorkspaceControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/qlikintegration")
+  @ApiNestedQuery(QlikIntegrationFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "QlikIntegration",
+    action: "read",
+    possession: "any",
+  })
+  async findQlikintegration(
+    @common.Req() request: Request,
+    @common.Param() params: QlikWorkspaceWhereUniqueInput
+  ): Promise<QlikIntegration[]> {
+    const query = plainToClass(QlikIntegrationFindManyArgs, request.query);
+    const results = await this.service.findQlikintegration(params.id, {
+      ...query,
+      select: {
+        alias: true,
+        createdAt: true,
+        domain: true,
+        id: true,
+        issuer: true,
+        keyId: true,
+        qlikId: true,
+        qlikTheme: true,
+        qlikWebIntegrationId: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/qlikintegration")
+  @nestAccessControl.UseRoles({
+    resource: "QlikWorkspace",
+    action: "update",
+    possession: "any",
+  })
+  async connectQlikintegration(
+    @common.Param() params: QlikWorkspaceWhereUniqueInput,
+    @common.Body() body: QlikIntegrationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      qlikintegration: {
+        connect: body,
+      },
+    };
+    await this.service.updateQlikWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/qlikintegration")
+  @nestAccessControl.UseRoles({
+    resource: "QlikWorkspace",
+    action: "update",
+    possession: "any",
+  })
+  async updateQlikintegration(
+    @common.Param() params: QlikWorkspaceWhereUniqueInput,
+    @common.Body() body: QlikIntegrationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      qlikintegration: {
+        set: body,
+      },
+    };
+    await this.service.updateQlikWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/qlikintegration")
+  @nestAccessControl.UseRoles({
+    resource: "QlikWorkspace",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectQlikintegration(
+    @common.Param() params: QlikWorkspaceWhereUniqueInput,
+    @common.Body() body: QlikIntegrationWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      qlikintegration: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateQlikWorkspace({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

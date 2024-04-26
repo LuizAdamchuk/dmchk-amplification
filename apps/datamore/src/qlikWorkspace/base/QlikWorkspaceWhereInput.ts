@@ -14,7 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { QlikIntegrationWhereUniqueInput } from "../../qlikIntegration/base/QlikIntegrationWhereUniqueInput";
+import { QlikIntegrationListRelationFilter } from "../../qlikIntegration/base/QlikIntegrationListRelationFilter";
 import { WorkspaceListRelationFilter } from "../../workspace/base/WorkspaceListRelationFilter";
 
 @InputType()
@@ -32,15 +32,15 @@ class QlikWorkspaceWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => QlikIntegrationWhereUniqueInput,
+    type: () => QlikIntegrationListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => QlikIntegrationWhereUniqueInput)
+  @Type(() => QlikIntegrationListRelationFilter)
   @IsOptional()
-  @Field(() => QlikIntegrationWhereUniqueInput, {
+  @Field(() => QlikIntegrationListRelationFilter, {
     nullable: true,
   })
-  qlikintegration?: QlikIntegrationWhereUniqueInput;
+  qlikintegration?: QlikIntegrationListRelationFilter;
 
   @ApiProperty({
     required: false,
