@@ -144,13 +144,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "editor",
     "resource": "Organization",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "Organization",
     "action": "create:any",
     "attributes": "*"
@@ -162,19 +162,13 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "Organization",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "editor",
     "resource": "Organization",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "Organization",
     "action": "update:any",
     "attributes": "*"
@@ -186,9 +180,9 @@
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "editor",
     "resource": "Organization",
-    "action": "update:any",
+    "action": "delete:any",
     "attributes": "*"
   },
   {
@@ -198,19 +192,7 @@
     "attributes": "*"
   },
   {
-    "role": "editor",
-    "resource": "Organization",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
     "role": "owner",
-    "resource": "Organization",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
     "resource": "Organization",
     "action": "delete:any",
     "attributes": "*"
@@ -264,13 +246,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "editor",
     "resource": "Workspace",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "Workspace",
     "action": "create:any",
     "attributes": "*"
@@ -282,19 +264,13 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "Workspace",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "editor",
     "resource": "Workspace",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "Workspace",
     "action": "update:any",
     "attributes": "*"
@@ -306,9 +282,9 @@
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "editor",
     "resource": "Workspace",
-    "action": "update:any",
+    "action": "delete:any",
     "attributes": "*"
   },
   {
@@ -318,19 +294,7 @@
     "attributes": "*"
   },
   {
-    "role": "editor",
-    "resource": "Workspace",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
     "role": "owner",
-    "resource": "Workspace",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
     "resource": "Workspace",
     "action": "delete:any",
     "attributes": "*"
@@ -384,13 +348,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "editor",
     "resource": "QlikIntegration",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "QlikIntegration",
     "action": "create:any",
     "attributes": "*"
@@ -402,19 +366,13 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "QlikIntegration",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "editor",
     "resource": "QlikIntegration",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "QlikIntegration",
     "action": "update:any",
     "attributes": "*"
@@ -426,9 +384,9 @@
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "editor",
     "resource": "QlikIntegration",
-    "action": "update:any",
+    "action": "delete:any",
     "attributes": "*"
   },
   {
@@ -438,19 +396,7 @@
     "attributes": "*"
   },
   {
-    "role": "editor",
-    "resource": "QlikIntegration",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
     "role": "owner",
-    "resource": "QlikIntegration",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
     "resource": "QlikIntegration",
     "action": "delete:any",
     "attributes": "*"
@@ -744,13 +690,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "editor",
     "resource": "OrganizationsWorkspace",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "OrganizationsWorkspace",
     "action": "create:any",
     "attributes": "*"
@@ -762,19 +708,13 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "OrganizationsWorkspace",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "editor",
     "resource": "OrganizationsWorkspace",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "OrganizationsWorkspace",
     "action": "update:any",
     "attributes": "*"
@@ -786,9 +726,9 @@
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "editor",
     "resource": "OrganizationsWorkspace",
-    "action": "update:any",
+    "action": "delete:any",
     "attributes": "*"
   },
   {
@@ -798,19 +738,7 @@
     "attributes": "*"
   },
   {
-    "role": "editor",
-    "resource": "OrganizationsWorkspace",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
     "role": "owner",
-    "resource": "OrganizationsWorkspace",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
     "resource": "OrganizationsWorkspace",
     "action": "delete:any",
     "attributes": "*"
@@ -984,13 +912,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "editor",
     "resource": "QlikWorkspace",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "QlikWorkspace",
     "action": "create:any",
     "attributes": "*"
@@ -1002,19 +930,13 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "QlikWorkspace",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "editor",
     "resource": "QlikWorkspace",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "QlikWorkspace",
     "action": "update:any",
     "attributes": "*"
@@ -1026,19 +948,13 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "QlikWorkspace",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "editor",
     "resource": "QlikWorkspace",
     "action": "delete:any",
     "attributes": "*"
   },
   {
-    "role": "editor",
+    "role": "admin",
     "resource": "QlikWorkspace",
     "action": "delete:any",
     "attributes": "*"
@@ -1047,18 +963,6 @@
     "role": "owner",
     "resource": "QlikWorkspace",
     "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "QlikWorkspace",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "QlikWorkspace",
-    "action": "read:any",
     "attributes": "*"
   },
   {
@@ -1068,13 +972,13 @@
     "attributes": "*"
   },
   {
-    "role": "owner",
+    "role": "admin",
     "resource": "QlikWorkspace",
     "action": "read:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "owner",
     "resource": "QlikWorkspace",
     "action": "read:any",
     "attributes": "*"
